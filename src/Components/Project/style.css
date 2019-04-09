@@ -1,0 +1,330 @@
+.blue-background {
+    background-color: #b9eff2;
+    min-height: 100px;
+    z-index: 2;
+    margin-bottom: -50px;
+    -moz-box-shadow: inset 0 0 4px rgb(86, 188, 194);
+    -webkit-box-shadow: inset 0 0 4px rgb(86, 188, 194);
+    box-shadow: inset 0 0 4px rgb(86, 188, 194);   
+}
+
+.project-container {
+    display: flex;
+    margin-bottom: 24px;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0px 0px 4px #d1d1d1;
+    text-align: right;
+}
+
+.project-info-container {
+    display: flex;
+    /* margin-bottom: 24px; top for others */
+    flex-direction: row;
+    height: fit-content;
+    border-radius: 4px;
+    border-bottom: 2px dashed #66dfe7;
+}
+
+.project-image-container {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.project-image {
+    border: 0px solid rgb(109, 109, 109);
+    border-radius: 2px;
+    width: 200px;
+    height: 200px;
+}
+
+.project-info {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0px 40px 40px;
+    font-size: 24px;
+}
+
+.project-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.project-deadline {
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+}
+
+.title {
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.project-budget {
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+}
+
+.project-winner {
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+}
+
+.project-description-title {
+    font-size: 21px;
+    font-weight: bold;
+    margin: 14px 0px;
+}
+.project-description {
+    text-align: justify;
+    text-indent: 24px;
+    font-size: 16px;
+}
+
+.project-info-item {
+    margin-top: 4px;
+    align-items: center;
+}
+
+.project-info-item.first {
+    margin-top: 0px;
+}
+
+.section-container {
+    padding: 24px 40px;
+}
+
+.skills-container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid #e2e2e2;
+    background-color: #f9f9f9;
+}
+
+.maharat-haye-lazem {
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 24px;
+    margin-bottom: 12px;
+    text-align: right;
+}
+
+.skills-list-container {
+    display: flex;
+    justify-content: start;
+    direction: ltr;
+    height: 100%;
+}
+
+.skill {
+    background-color: #ffffff;
+    margin-right: 12px;
+    direction: ltr;
+    padding: 6px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+.skill-text {
+    font-size: 16px;
+    margin-right: 4px; 
+}
+
+.skill-button {
+    background-color: #00b800; /* Green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 28px;
+    height: 28px;
+}
+
+.skill-button > span {
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.skill-button.endorsed {
+    background-color: rgb(201, 238, 242);
+    color: rgb(70, 120, 121);
+}
+
+.bid-status-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.sabt-e-pishnahad {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.insert-bid-form {
+    display: flex;
+    justify-content: start;
+    direction: rtl;
+    background-color: #ffffff;
+    background-color: white;
+    border-radius: 8px;
+    padding: 4px;
+    width: 360px;
+    white-space: nowrap;
+    font-size: 16px;
+}
+
+.form-input-container {
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid #0199A5; */
+    box-shadow: 0 0 2px 2px #0199A5;
+    border-radius: 4px;
+    margin-left: 16px;
+    align-items: center;
+    padding: 8px;
+}
+
+.insert-bid-input {
+    flex: 1 0 200px;
+    /* margin-left: 8px; */
+    border: none;
+    background-color: #ffffff;
+}
+
+.form-input-text {
+    flex: 1 0 50px;
+    color: #0199A5;
+}
+
+.insert-bid-button {
+    background-color: #0199A5;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 10px 0px;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0 0 2px 1px #0199A5;
+    flex: 1;
+}
+
+.already-bid {
+    display: flex;
+    flex-direction: row;
+    color: #059142;
+    font-size: 20px;
+}
+
+.bid-deadline-passed {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #f0222e;
+    font-size: 16px;
+}
+
+i {
+    margin-left: 10px;
+}
+
+/* end */
+
+#add-skill-container {
+    display: flex;
+    justify-content: start;
+    direction: rtl;
+    margin-bottom: 24px;
+    align-items: center;
+}
+
+#maharat-ha {
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 24px;
+}
+
+#add-skill-form {
+    display: flex;
+    justify-content: start;
+    direction: rtl;
+    background-color: #ffffff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+    padding: 4px;
+    width: 360px;
+    white-space: nowrap;
+}
+
+#add-skill-select {
+    flex: 1 0 200px;
+    margin-left: 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #eeeeee;
+}
+
+#add-skill-button {
+    background-color: #0199A5;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 6px;
+    flex: 1 0 80px;
+}
+
+
+.footer-color {
+    background-color: #363636;
+    -moz-box-shadow: inset 0 0 4px #1a1a1a;
+    -webkit-box-shadow: inset 0 0 4px #1a1a1a;
+    box-shadow: inset 0 0 4px #1a1a1a;
+}
+
+#footer {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* text-align: center; */
+    bottom: 0;
+}
+
+.footer-text {
+    font-size: 16px;
+    color: #808080;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0);
+
+}
+
+/* 
+.dummy {
+    background-color: darkslategrey;
+} */
+
+
+.body-container {
+    margin: 0;
+    padding: 0;
+    max-width: unset;
+    min-height: calc(100vh - 60px - 65px - 50px)
+}
+
+.background-fill{
+    margin: 0;
+    padding: 0;
+    max-width: 0;
+}

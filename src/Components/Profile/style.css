@@ -1,0 +1,224 @@
+.profile-container {
+    display: flex;
+    margin-bottom: 24px;
+}
+
+.blue-background {
+    background-color: #b9eff2;
+    min-height: 150px;
+    z-index: 2;
+    margin-bottom: -95px;
+    -moz-box-shadow: inset 0 0 4px rgb(86, 188, 194);
+    -webkit-box-shadow: inset 0 0 4px rgb(86, 188, 194);
+    box-shadow: inset 0 0 4px rgb(86, 188, 194);
+    
+}
+
+.profile-pic {
+    width: 174px;
+    height: 174px;
+    border-radius: 16px;
+    z-index: 5;
+}
+
+.profile-pic-border {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    border: solid #f1fcfcdd;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    /* z-index: 3; */
+    margin-left: 16px;
+    width: 190px;
+    height: 190px;
+}
+
+.skewed-rectangle-container {
+    position: absolute;
+    right: 180px;
+    top: calc(95px - 30px);
+}
+
+.skewed {
+    -webkit-transform:skew(-215deg);
+    -moz-transform:skew(-215deg);
+    transform:skew(-215deg);
+}
+
+.rectangle {
+    display: inline-block;
+    min-width: 120px;
+    min-height: 30px;
+    background-color: rgba(107, 201, 205, 0.9);
+    box-shadow: -10px 0 rgba(107, 201, 205, 0.5);
+}
+
+#title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+#profile-name{
+    font-size: 32px;
+    font-weight: bold;
+    color: rgb(71, 71, 71);
+    
+}
+
+#job-title{
+    font-size: 16px;
+    color: rgb(114, 114, 114);
+}
+
+#bio-text {
+    text-align: justify;
+    font-size: 16px;
+    color: rgb(70, 70, 70);
+    margin-bottom: 24px;
+    line-height: 32px;
+}
+
+
+/* #description {
+    display: flex;
+    overflow: auto;
+} */
+
+#skills-container {
+    display: flex;
+    justify-content: start;
+    direction: ltr;
+    height: 100%;
+}
+
+.skill {
+    background-color: #ffffff;
+    margin-right: 12px;
+    direction: ltr;
+    padding: 6px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+.skill:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.skill-text {
+    font-size: 16px;
+    margin-right: 4px; 
+}
+
+.skill-button {
+    background-color: #00b800; /* Green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 28px;
+    height: 28px;
+}
+
+.skill-button > span {
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.skill-button.endorsed {
+    background-color: rgb(201, 238, 242);
+    color: rgb(70, 120, 121);
+}
+
+.skill-button.not-endorsed:hover span {
+    display: none;
+}
+
+.skill-button.not-endorsed:hover:before {
+    content: '+';
+    font-size: 16px;
+}
+
+.skill-button.deleted:hover span {
+    display: none;
+}
+
+.skill-button.deleted:hover {
+    background-color:#EF011C;
+}
+
+.skill-button.deleted:hover:before {
+    content: '-';
+    font-size: 16px;
+}
+
+#add-skill-container {
+    display: flex;
+    justify-content: start;
+    direction: rtl;
+    margin-bottom: 24px;
+    align-items: center;
+}
+
+#maharat-ha {
+    font-weight: bold;
+    font-size: 24px;
+    margin-left: 24px;
+}
+
+#add-skill-form {
+    display: flex;
+    justify-content: start;
+    direction: rtl;
+    background-color: #ffffff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+    padding: 4px;
+    width: 360px;
+    white-space: nowrap;
+}
+
+#add-skill-select {
+    flex: 1 0 200px;
+    margin-left: 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #eeeeee;
+}
+
+#add-skill-button {
+    background-color: #0199A5;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 4px;
+    flex: 1 0 80px;
+    border: 1px solid rgb(0, 144, 155);
+}
+
+/* 
+.dummy {
+    background-color: darkslategrey;
+} */
+
+
+.body-container {
+    margin: 0;
+    padding: 0;
+    max-width: unset;
+    min-height: calc(100vh - 60px - 65px - 55px)
+}
+
+.background-fill {
+    margin: 0;
+    padding: 0;
+    max-width: 0;
+}

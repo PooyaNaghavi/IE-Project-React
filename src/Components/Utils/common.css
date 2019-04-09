@@ -1,0 +1,33 @@
+html * {
+    font-family: IRANSans;
+    direction: rtl;
+}
+
+body {
+    background-color: #f6f6f6;
+    overflow-x: hidden;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.white {
+    background-color: #FFFFFF;
+}
+
+.red {
+    color: #f0222e;
+}
+
+.grey {
+    color: #6c6c6c;
+}
+
+.blue {
+    color: #00858d;
+}
+
+.green {
+    color: #059142;
+}
