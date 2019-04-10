@@ -4,6 +4,7 @@ import './index.css';
 import './Components/Utils/reset.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Components/Utils/fonts.css';
+import './assets/icons/font/flaticon.css'
 import './Components/Utils/common.css';
 
 import * as serviceWorker from './serviceWorker';

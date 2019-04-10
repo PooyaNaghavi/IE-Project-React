@@ -10,7 +10,7 @@ class index extends Component {
     return (
         <div>
             <Header/>
-            <div className="row blue-background">
+            <div className="row project-blue-background">
             </div>
             <div className="container body-container">
                 <div className="row">

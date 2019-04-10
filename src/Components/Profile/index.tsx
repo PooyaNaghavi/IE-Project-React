@@ -11,7 +11,7 @@ class index extends Component {
     return (
         <div>
             <Header/>
-            <div className="row blue-background"></div>
+            <div className="row profile-blue-background"></div>
             <div className="container body-container">
                 <div className="row">
                     <div className="col-1 dummy"></div>

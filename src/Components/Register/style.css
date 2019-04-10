@@ -30,10 +30,6 @@ body {
     margin: 4px;
 }
 
-.title{
-    margin: 8px;
-}
-
 ::placeholder{
     color:rgb(144,144,144);
     justify-content: center;
