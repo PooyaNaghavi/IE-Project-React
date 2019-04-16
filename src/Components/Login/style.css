@@ -1,0 +1,81 @@
+body {
+    font-family: IRANSans;
+    text-align: center;
+    background-color: rgb(246, 246, 246);
+  }
+  
+.login-form {
+    margin: 10px auto;
+    padding: 10px 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    width: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    direction: rtl;
+    margin-top: 10%;
+}
+
+.login-header {
+    margin: 20px 0 20px 0;
+    text-align: center;
+    color: #0199A5;
+    font-size: 30px;
+}
+
+.login-header-name{
+    font-size: 18px;
+    text-align: right;
+    margin: 4px;
+}
+
+.login-title{
+    margin: 8px;
+}
+
+::placeholder{
+    color:rgb(144,144,144);
+    justify-content: center;
+}
+
+.login-box-style{
+    border: none;
+    font-size: 14px;
+    height: 32px;
+    margin: 16px 0px 16px 0px;
+    outline: 0;
+    padding: 20px;
+    width: 100%;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+}
+
+.login-button {
+    padding: 9px 39px 9px 39px;
+    color:#FFFFFF;
+    background-color: #0199A5;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #0199A5;
+    border-width: 1px 1px 3px;
+    box-shadow: 0 -1px 0 rgba(255,255,255,0.1);
+    margin: 10px 0px 10px 0px;
+}
+
+.number {
+    background-color:  #0199A5;
+    color:#FFFFFF;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-top: 10px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 100%;
+}
