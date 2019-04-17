@@ -85,7 +85,7 @@ class index extends Component<Props, State> {
     console.log(url);
     axios.post(
         url,
-        querystring.stringify({username: usernameValue, password: passwordValue }),
+        {username: usernameValue, password: passwordValue },
         {
           headers: {
             "content-type": "application/json; charset=utf-8"
