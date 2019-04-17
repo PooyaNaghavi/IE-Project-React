@@ -7,8 +7,6 @@ import Cookies from "universal-cookie";
 import Popup from "reactjs-popup";
 import { Redirect } from "react-router";
 
-
-
 class index extends Component<Props, State> {
   constructor(props: Readonly<Props>) {
     super(props)

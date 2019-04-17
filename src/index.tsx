@@ -23,7 +23,7 @@ ReactDOM.render(
         <Route exact path="/project" component={Project}/>
         <Route exact path="/register" component={Register}/>
         <Route exact path="/login" component={Login}/>
-        <Route exact path="/homepage" component={HomePage}/>
+        <Route exact path="/home" component={HomePage}/>
     </Router>, 
     document.getElementById("root")
 );
