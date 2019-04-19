@@ -9,17 +9,20 @@ import { Redirect } from "react-router";
 
 class index extends Component<Props, State> {
   constructor(props: Readonly<Props>) {
-    super(props)
+    super(props);
     this.state = {
-      status: 'initial',
-      usernameValue: '',
-      passwordValue: '',
-    }
+      status: "initial",
+      usernameValue: "",
+      passwordValue: ""
+    };
   }
 
   render() {
     const { status } = this.state;
-    return status === 'logged-in' ? (<Redirect to="/homePage" />) : (
+    console.log(status === "error");
+    return status === "logged-in" ? (
+      <Redirect to="/home" />
+    ) : (
       <div>
         <form
           onSubmit={e => this.submitLoginFrom(e)}
@@ -51,19 +54,22 @@ class index extends Component<Props, State> {
           </fieldset>
 
           <Popup
-            trigger={<button className="login-button" type="submit">
-              ورود
-          </button>}
-            open={status === 'error'} position="right center">
+            trigger={
+              <button className="login-button" type="submit">
+                ورود
+              </button>
+            }
+            open={status == "error"}
+            position="right center"
+          >
             <div> نام کاربری یا رمز عبور نادرست است. </div>
           </Popup>
-
         </form>
       </div>
     );
   }
   handleErrorButton(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-    this.setState({ status: 'initial' })
+    this.setState({ status: "initial" });
   }
 
   handlePasswordInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -74,36 +80,35 @@ class index extends Component<Props, State> {
     this.setState({ usernameValue: e.target.value });
   }
 
-
   submitLoginFrom(e: React.FormEvent<HTMLFormElement>): void {
     const { usernameValue, passwordValue } = this.state;
     e.preventDefault();
     const url: string = `http://localhost:8080/login`;
-    const querystring = require('querystring');
     console.log(url);
-    axios.post(
-      url,
-      { username: usernameValue, password: passwordValue },
-      {
-        headers: {
-          "content-type": "application/json; charset=utf-8"
+    axios
+      .post(
+        url,
+        { userName: usernameValue, password: passwordValue },
+        {
+          headers: {
+            "content-type": "application/json; charset=utf-8"
+          }
         }
-      }
-    )
+      )
       .then((response: any) => {
         const cookies = new Cookies();
         cookies.set("ContextUser", usernameValue, { path: "/" });
-        this.setState({ status: "logged-in" })
+        this.setState({ status: "logged-in" });
       })
       .catch((err: any) => {
-        this.setState({ passwordValue: "", status: 'error' });
+        this.setState({ passwordValue: "", status: "error" });
       });
   }
 }
 
 export default index;
 
-interface Props { }
+interface Props {}
 
 interface State {
   usernameValue: string;
