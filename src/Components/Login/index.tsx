@@ -18,7 +18,7 @@ class index extends Component<Props, State> {
   }
 
   render() {
-    const {status} = this.state;
+    const { status } = this.state;
     return status === 'logged-in' ? (<Redirect to="/homePage" />) : (
       <div>
         <form
@@ -49,12 +49,12 @@ class index extends Component<Props, State> {
               value={this.state.passwordValue}
             />
           </fieldset>
- 
-          <Popup 
-          trigger={<button className="login-button" type="submit">
-          ورود
+
+          <Popup
+            trigger={<button className="login-button" type="submit">
+              ورود
           </button>}
-          open={status === 'error'} position="right center">
+            open={status === 'error'} position="right center">
             <div> نام کاربری یا رمز عبور نادرست است. </div>
           </Popup>
 
@@ -63,7 +63,7 @@ class index extends Component<Props, State> {
     );
   }
   handleErrorButton(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-    this.setState({status: 'initial'})
+    this.setState({ status: 'initial' })
   }
 
   handlePasswordInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -82,18 +82,18 @@ class index extends Component<Props, State> {
     const querystring = require('querystring');
     console.log(url);
     axios.post(
-        url,
-        {username: usernameValue, password: passwordValue },
-        {
-          headers: {
-            "content-type": "application/json; charset=utf-8"
-          }
+      url,
+      { username: usernameValue, password: passwordValue },
+      {
+        headers: {
+          "content-type": "application/json; charset=utf-8"
         }
-      )
+      }
+    )
       .then((response: any) => {
         const cookies = new Cookies();
         cookies.set("ContextUser", usernameValue, { path: "/" });
-        this.setState({status: "logged-in"})
+        this.setState({ status: "logged-in" })
       })
       .catch((err: any) => {
         this.setState({ passwordValue: "", status: 'error' });
@@ -103,7 +103,7 @@ class index extends Component<Props, State> {
 
 export default index;
 
-interface Props {}
+interface Props { }
 
 interface State {
   usernameValue: string;

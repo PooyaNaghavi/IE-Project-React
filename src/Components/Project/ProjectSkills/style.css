@@ -1,0 +1,25 @@
+.skills-container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid #e2e2e2;
+    background-color: #f9f9f9;
+}
+
+.maharat-haye-lazem {
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 24px;
+    margin-bottom: 12px;
+    text-align: right;
+}
+
+.skills-list-container {
+    display: flex;
+    justify-content: flex-start;
+    direction: ltr;
+    height: 100%;
+}
+
+.rem-time-text {
+    margin-left: 4px;
+}

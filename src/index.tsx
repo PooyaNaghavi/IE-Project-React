@@ -9,7 +9,7 @@ import './Components/Utils/common.css';
 
 import * as serviceWorker from './serviceWorker';
 import ReactDom from 'react-dom';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import Profile from './Components/Profile/index';
 import Project from './Components/Project/index';
@@ -19,12 +19,12 @@ import HomePage from './Components/Homepage/index';
 
 ReactDOM.render(
     <Router>
-        <Route exact path="/user" component={Profile}/>
-        <Route exact path="/project" component={Project}/>
-        <Route exact path="/register" component={Register}/>
-        <Route exact path="/login" component={Login}/>
-        <Route exact path="/home" component={HomePage}/>
-    </Router>, 
+        <Route exact path="/user" component={Profile} />
+        <Route exact path="/project" component={Project} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/home" component={HomePage} />
+    </Router>,
     document.getElementById("root")
 );
 

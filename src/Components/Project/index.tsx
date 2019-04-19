@@ -2,112 +2,145 @@ import React, { Component } from 'react';
 import './style.css';
 import Footer from '../Utils/Footer';
 import Header from '../Utils/Header';
+import ProjectInfo from './ProjectInfo'
 
-import projectPic from './assets/Project.jpg';
+import axios from 'axios';
+import ProjectSkills from './ProjectSkills';
+import ProjectBid from './ProjectBid';
 
-class index extends Component {
-  render() {
-    return (
-        <div>
-            <Header/>
-            <div className="row project-blue-background">
-            </div>
-            <div className="container body-container">
-                <div className="row">
-                    <div className="col-1 dummy"></div>
-                    <div className="col-10">
-                        <div className="project-container">
-                            <div className="project-info-container">
-                                <div className="project-image-container">
-                                    <img className="project-image" src={projectPic}
-                                        alt="تصویر پروژه"/>
-                                </div>
-                                <div className="project-info">
-                                    <div className="project-title">
-                                        پروژه طراحی سایت جاب‌اونجا
-                                    </div>
-                                    <div className="project-deadline red project-info-item first">
-                                        <i className="flaticon-deadline"></i>
-                                        <div className="title">مهلت تمام شده</div>
-                                    </div>
-                                    {/*<div className="project-deadline grey project-info-item first">
-                                        <i className="flaticon-deadline"></i>
-                                        <div className="title">زمان باقی‌مانده:</div>
-                                        <div className="text">۱۷ دقیقه و ۲۵ ثانیه</div>
-                                    </div> --> */}
-                                    <div className="project-budget project-info-item blue">
-                                        <i className="flaticon-money-bag"></i>
-                                        <div className="title">بودجه:</div>
-                                        <div className="title">۲۵۰۰ تومان</div>
-
-                                    </div>
-                                    <div className="project-winner project-info-item green">
-                                        <i className="flaticon-check-mark"></i>
-                                        <div className="title">برنده:‌</div>
-                                        <div className="title">وحید محمدی</div>
-                                    </div>
-                                    <div className="project-description-title">
-                                        توضیحات
-                                    </div>
-                                    <div className="project-description">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک
-                                        است.
-                                        چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
-                                        تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای
-                                        زیادی در
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="skills-container section-container">
-                                <div className="maharat-haye-lazem blue">مهارت‌های لازم:</div>
-                                <div className="skills-list-container">
-                                    <div className="skill">
-                                        <span className="skill-text">HTML</span>
-                                        <button className="skill-button endorsed" disabled><span>2</span></button>
-                                    </div>
-                                    <div className="skill">
-                                        <span className="skill-text">CSS</span>
-                                        <button className="skill-button endorsed" disabled><span>3</span></button>
-                                    </div>
-                                    <div className="skill">
-                                        <span className="skill-text">JavaScript</span>
-                                        <button className="skill-button endorsed" disabled><span>16</span></button>
-                                    </div>
-                                    <div className="skill">
-                                        <span className="skill-text">TypeScript</span>
-                                        <button className="skill-button endorsed" disabled><span>2</span></button>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div className="bid-status-container section-container">
-                                <div className="sabt-e-pishnahad">ثبت پیشنهاد</div>
-                                {/* <form className="insert-bid-form" action="#" method="POST">
-                                    <div className="form-input-container">
-                                        <input className="insert-bid-input" type="text" placeholder="پیشنهاد خود را وارد کنید">
-                                        <div className="form-input-text">تومان</div>
-                                    </div>
-                                    <button className="insert-bid-button" type="submit">ارسال</button>
-                                </form> */}
-                                {/* <div className="already-bid">
-                                    <i className="flaticon-check-mark"></i>
-                                    <div>شما قبلا پیشنهاد خود را ثبت کرده‌اید</div>
-                                </div> */}
-                                <div className="bid-deadline-passed">
-                                    <i className="flaticon-danger"></i>
-                                    <div>مهلت ارسال پیشنهاد برای این پروژه به پایان رسیده است!</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-1 dummy"></div>
-                </div>
-            </div>
-            <Footer/>
-        </div>
-    );
-  }
+export interface ProjectProps {
+    match: any,
+    location: any,
 }
 
-export default index;
+export interface ProjectState {
+    // ProjectInfo
+    pic: string,
+    title: string,
+    deadline: number | null,
+    budget: number,
+    winner: string | null,
+    description: string,
+
+    // skills
+    skills: Array<any>,
+
+    // bid
+    bids: Array<any>,
+    userAlreadyBid: boolean,
+
+    error: boolean,
+    projectId: string | null,
+}
+
+class Project extends React.Component<ProjectProps, ProjectState> {
+
+    constructor(props: ProjectProps) {
+        super(props);
+        this.state = {
+            pic: '',
+            title: '',
+            deadline: null,
+            budget: 0,
+            winner: null,
+            description: '',
+
+            skills: [],
+
+            bids: [],
+            userAlreadyBid: false,
+
+            error: false,
+            projectId: null,
+        };
+    }
+
+    componentDidMount() {
+        const queryParams = new URLSearchParams(this.props.location.search);
+        const projectId = queryParams.get('id')
+        this.setState({
+            projectId,
+        })
+
+        axios.get(
+            `${process.env.REACT_APP_BASE_URL}/project?id=${projectId}`,
+            {
+                headers: {
+                    "content-type": "application/json; charset=utf-8"
+                }
+            }
+        ).then((response: any) => {
+            console.log("TCL: Project -> componentDidMount -> response", response)
+            const bids = response.data.bids || []
+            const userAlreadyBid = !!(bids.find((bid: any) => bid.user.id === '1')) // TODO: get UserId from cookie
+            console.log('aaaaa: ', userAlreadyBid)
+
+            this.setState({
+                pic: response.data.project.imageUrl,
+                title: response.data.project.title,
+                deadline: response.data.project.deadline,
+                budget: response.data.project.budget,
+                winner: response.data.project.winner ? response.data.project.winner.name : null,
+                description: response.data.project.description,
+
+                skills: response.data.project.skills,
+
+                bids,
+                userAlreadyBid,
+
+                error: false,
+            })
+            console.log('bids: ', this.state.bids)
+        }).catch((err: any) => {
+            console.error(err)
+            this.setState({
+                error: true
+            })
+
+        });
+    }
+
+    render() {
+        const {
+            pic,
+            title,
+            deadline,
+            budget,
+            winner,
+            description,
+            skills,
+            userAlreadyBid,
+            projectId,
+            error,
+        } = this.state
+
+        console.log("TCL: Project -> render -> skills", skills)
+
+        return (
+            error ? <div>خطا، لطفا دوباره تلاش کنید</div> :
+                <div>
+                    <Header />
+                    <div className="row project-blue-background"></div>
+                    <div className="container body-container">
+                        <div className="row">
+                            <div className="col-1 dummy"></div>
+                            <div className="col-10">
+                                <div className="project-container">
+                                    <ProjectInfo pic={pic} title={title} deadline={deadline} budget={budget} winner={winner} description={description} />
+                                    <ProjectSkills skills={skills} />
+                                    <ProjectBid
+                                        projectId={projectId}
+                                        deadlinePassed={deadline ? deadline + 10000000 < Date.now() : false}
+                                        alreadyBid={userAlreadyBid} />
+                                </div>
+                            </div>
+                            <div className="col-1 dummy"></div>
+                        </div>
+                    </div>
+                    <Footer />
+                </div>
+        );
+    }
+}
+
+export default Project;
