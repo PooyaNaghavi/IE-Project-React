@@ -58,7 +58,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 }
             }
         ).then((response: any) => {
-            console.log("TCL: Profile -> componentDidMount -> response", response)
 
 
             this.setState({

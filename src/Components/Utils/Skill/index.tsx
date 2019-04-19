@@ -71,7 +71,6 @@ class Skill extends React.Component<SkillProps, SkillState> {
                 }
             }
         ).then((response: any) => {
-            console.log("TCL: Skill -> EndorseSkill -> response", response)
             this.setState({
                 endorsed: true,
                 point: this.state.point + 1,
@@ -100,7 +99,6 @@ class Skill extends React.Component<SkillProps, SkillState> {
                 }
             }
         ).then((response: any) => {
-            console.log("TCL: Skill -> RemoveSkill -> response", response)
             this.setState({
                 deleted: true,
                 error: false,

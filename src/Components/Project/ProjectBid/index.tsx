@@ -29,7 +29,6 @@ class ProjectBid extends React.Component<ProjectBidProps, ProjectBidState> {
     render() {
         const { deadlinePassed, alreadyBid } = this.props
         const { userHasBid, error } = this.state
-        console.log("TCL: ProjectBid -> render -> alreadyBid, deadlinePassed", alreadyBid, deadlinePassed)
 
         return (
             <div className="bid-status-container section-container">
@@ -70,7 +69,6 @@ class ProjectBid extends React.Component<ProjectBidProps, ProjectBidState> {
 
     handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault()
-        console.log("TCL: ProjectBid -> this.state.amount", this.state.amount)
         axios.post(
             `${process.env.REACT_APP_BASE_URL}/project/bid?id=${this.props.projectId}`,
             {
@@ -82,7 +80,6 @@ class ProjectBid extends React.Component<ProjectBidProps, ProjectBidState> {
                 }
             }
         ).then((response: any) => {
-            console.log("TCL: Project -> componentDidMount -> response", response)
 
             this.setState({
                 error: false,

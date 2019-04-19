@@ -111,7 +111,6 @@ class UserSkills extends React.Component<UserSkillsProps, UserSkillsState> {
                 }
             }
         ).then((response: any) => {
-            console.log("TCL: AddSkill -> response", response)
             let skillsList = this.state.skills || this.props.skills
             skillsList.push({ name: this.state.skillToAdd, point: 0, endorseUsers: [] })
             this.setState({

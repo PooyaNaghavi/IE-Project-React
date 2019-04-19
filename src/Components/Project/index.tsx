@@ -68,7 +68,6 @@ class Project extends React.Component<ProjectProps, ProjectState> {
         }
       })
       .then((response: any) => {
-        console.log("TCL: Project -> componentDidMount -> response", response);
         const bids = response.data.bids || [];
         const userAlreadyBid = !!bids.find((bid: any) => bid.user.id === "1"); // TODO: get UserId from cookie
         console.log("aaaaa: ", userAlreadyBid);
@@ -114,41 +113,40 @@ class Project extends React.Component<ProjectProps, ProjectState> {
       error
     } = this.state;
 
-    console.log("TCL: Project -> render -> skills", skills);
 
     return error ? (
       <div>خطا، لطفا دوباره تلاش کنید</div>
     ) : (
-      <div>
-        <Header />
-        <div className="row project-blue-background" />
-        <div className="container body-container">
-          <div className="row">
-            <div className="col-1 dummy" />
-            <div className="col-10">
-              <div className="project-container">
-                <ProjectInfo
-                  pic={pic}
-                  title={title}
-                  deadline={deadline}
-                  budget={budget}
-                  winner={winner}
-                  description={description}
-                />
-                <ProjectSkills skills={skills} />
-                <ProjectBid
-                  projectId={projectId}
-                  deadlinePassed={deadline ? deadline < Date.now() : false}
-                  alreadyBid={userAlreadyBid}
-                />
+        <div>
+          <Header />
+          <div className="row project-blue-background" />
+          <div className="container body-container">
+            <div className="row">
+              <div className="col-1 dummy" />
+              <div className="col-10">
+                <div className="project-container">
+                  <ProjectInfo
+                    pic={pic}
+                    title={title}
+                    deadline={deadline}
+                    budget={budget}
+                    winner={winner}
+                    description={description}
+                  />
+                  <ProjectSkills skills={skills} />
+                  <ProjectBid
+                    projectId={projectId}
+                    deadlinePassed={deadline ? deadline < Date.now() : false}
+                    alreadyBid={userAlreadyBid}
+                  />
+                </div>
               </div>
+              <div className="col-1 dummy" />
             </div>
-            <div className="col-1 dummy" />
           </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    );
+      );
   }
 }
 

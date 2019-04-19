@@ -15,7 +15,6 @@ class ProjectSkills extends React.Component<ProjectSkillsProps, ProjectSkillsSta
         super(props);
     }
     render() {
-        console.log("TCL: ProjectSkills -> render -> this.state", this.props)
         return (
             <div className="skills-container section-container">
                 <div className="maharat-haye-lazem blue">مهارت‌های لازم:</div>
