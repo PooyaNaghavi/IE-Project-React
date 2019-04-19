@@ -100,12 +100,10 @@
   background: #f9f9f9;
   border: none;
   font-size: 12px;
-  width: 200px;
   height: 30px;
   padding-right: 4px;
   margin: 3px;
   border-radius: 4px;
-  width: 240px;
   height: 42px;
   font-size: 16px;
   padding: 10px;
@@ -119,4 +117,9 @@
 .project-list {
   display: flex;
   flex-direction: column;
+}
+
+.place-holder-red::placeholder {
+  color: red;
+  opacity: 0.6;
 }

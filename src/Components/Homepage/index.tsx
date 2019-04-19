@@ -10,18 +10,24 @@ import UserPreview from "./UserPreview/index";
 import ProjectPreview from "./ProjectPreview/index";
 
 interface HomeState {
-  users: Array<any>;
-  projects: Array<any>;
+  users: Array<any>,
+  projects: Array<any>,
+  searchInput: string,
+  searchPlaceHolder: string,
+  searchPlaceHolderColor: string
 }
 
-interface Props {}
+interface Props { }
 
 class HomePage extends Component<Props, HomeState> {
   constructor(props: Readonly<Props>) {
     super(props);
     this.state = {
       users: [],
-      projects: []
+      projects: [],
+      searchInput: '',
+      searchPlaceHolder: 'جستجو در جاب‌اونجا',
+      searchPlaceHolderColor: ''
     };
   }
 
@@ -52,7 +58,7 @@ class HomePage extends Component<Props, HomeState> {
       });
   }
   render() {
-    const { users } = this.state;
+    const { users, searchPlaceHolder, searchInput, searchPlaceHolderColor } = this.state;
     return (
       <div>
         <Header />
@@ -72,11 +78,13 @@ class HomePage extends Component<Props, HomeState> {
                 </div>
                 <div className="project-search-container">
                   <input
-                    className="search-input"
+                    className={`search-input place-holder-${searchPlaceHolderColor}`}
+                    onChange={e => this.handleSearchInputChange(e)}
+                    value={searchInput}
                     type="text"
-                    placeholder="جستجو در جاب‌اونجا"
+                    placeholder={searchPlaceHolder}
                   />
-                  <button className="search-button">جستجو</button>
+                  <button className="search-button" onClick={(e) => this.handleProjectSearchOnClick(e)}>جستجو</button>
                 </div>
                 <div className="home-body">
                   <div className="user-search">
@@ -111,6 +119,19 @@ class HomePage extends Component<Props, HomeState> {
         <Footer />
       </div>
     );
+  }
+  handleSearchInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    this.setState({
+      searchInput: e.target.value
+    })
+  }
+  handleProjectSearchOnClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+    if (this.state.searchInput === '') {
+      this.setState({
+        searchPlaceHolder: 'ورودی جستجو نمی‌تواند خالی باشد.',
+        searchPlaceHolderColor: 'red',
+      })
+    }
   }
 }
 

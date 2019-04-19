@@ -25,7 +25,7 @@ class Skill extends React.Component<SkillProps, SkillState> {
         super(props);
         this.state = {
             name: '',
-            point: 0,
+            point: this.props.point,
             endorsed: this.props.endorsed,
             disabled: this.props.disabled,
             deleted: false,
