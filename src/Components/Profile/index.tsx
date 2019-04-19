@@ -2,34 +2,111 @@ import React, { Component } from 'react';
 import './style.css';
 import Footer from '../Utils/Footer';
 import Header from '../Utils/Header';
-import AddSkill from './AddSkill';
 
 import UserInfo from './UserInfo';
+import axios from 'axios';
+import UserSkills from './UserSkills';
 
 export interface ProfileProps {
-
+    location: any,
 }
 
 export interface ProfileState {
-    bio: string;
+    userId: string | null,
+
+    firstName: string,
+    jobTitle: string,
+    lastName: string,
+    profilePictureURL: string,
+
+    bio: string,
+
+    skills: Array<any>,
+    allSkills: Array<any>,
+
+    error: boolean,
 }
 
 class Profile extends React.Component<ProfileProps, ProfileState> {
     constructor(props: ProfileProps) {
         super(props);
         this.state = {
-            bio: 'سیشتسیشسی',
+            userId: null,
+            bio: '',
+            firstName: '',
+            jobTitle: '',
+            lastName: '',
+            profilePictureURL: '',
+            skills: [],
+            allSkills: [],
+            error: false,
         };
     }
 
+    componentDidMount() {
+        const queryParams = new URLSearchParams(this.props.location.search);
+        const userId = queryParams.get('id')
+        this.setState({
+            userId,
+        })
+
+        axios.get(
+            `${process.env.REACT_APP_BASE_URL}/user?id=${userId}`,
+            {
+                headers: {
+                    "content-type": "application/json; charset=utf-8"
+                }
+            }
+        ).then((response: any) => {
+            console.log("TCL: Profile -> componentDidMount -> response", response)
+
+
+            this.setState({
+                firstName: response.data.user.firstName,
+                jobTitle: response.data.user.jobTitle,
+                lastName: response.data.user.lastName,
+                profilePictureURL: response.data.user.profilePictureURL,
+
+                bio: response.data.user.bio,
+
+                skills: response.data.user.skills,
+                allSkills: response.data.allSkills,
+
+                error: false,
+            })
+        }).catch((err: any) => {
+            console.error(err)
+            this.setState({
+                error: true
+            })
+
+        });
+    }
+
+
     render() {
-        const { bio } = this.state
+        const {
+            firstName,
+            lastName,
+            userId,
+            jobTitle,
+            profilePictureURL,
+            bio,
+            skills,
+            allSkills,
+        } = this.state
         return (
             <div>
                 <Header />
                 <div className="row profile-blue-background"></div>
                 <div className="container body-container">
-                    <UserInfo firstName="ممرضا" lastName="کیانی" id="2" jobTitle="بیکار" profilePic="aa" userName="assd" />
+                    <UserInfo
+                        firstName={firstName}
+                        lastName={lastName}
+                        id={userId}
+                        jobTitle={jobTitle}
+                        profilePictureURL={profilePictureURL}
+                    />
                     <div className="row">
                         <div className="col-1 dummy"></div>
                         <div className="col-10">
@@ -39,35 +116,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                         </div>
                         <div className="col-1 dummy"></div>
                     </div>
-                    <AddSkill />
-                    <div className="row">
-                        <div className="col-1 dummy"></div>
-                        <div className="col-10">
-                            <div id="skills-container">
-                                <div className="skill">
-                                    <span className="skill-text">HTML</span>
-                                    <button className="skill-button not-endorsed"><span>2</span></button>
-                                </div>
-                                <div className="skill">
-                                    <span className="skill-text">CSS</span>
-                                    <button className="skill-button not-endorsed"><span>3</span></button>
-                                </div>
-                                <div className="skill">
-                                    <span className="skill-text">JavaScript</span>
-                                    <button className="skill-button endorsed" disabled><span>16</span></button>
-                                </div>
-                                <div className="skill">
-                                    <span className="skill-text">TypeScript</span>
-                                    <button className="skill-button endorsed" disabled><span>2</span></button>
-                                </div>
-                                <div className="skill">
-                                    <span className="skill-text">Android</span>
-                                    <button className="skill-button deleted"><span>4</span></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-1 dummy"></div>
-                    </div>
+                    <UserSkills skills={skills} allSkills={allSkills} userId={userId} />
                 </div>
                 <Footer />
             </div>

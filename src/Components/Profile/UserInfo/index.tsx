@@ -1,16 +1,12 @@
 import React from 'react';
 import './style.css'
 
-import ProfilePic from '../assets/Mreza.jpg';
-
-
 export interface UserInfoProps {
-    profilePic: string,
+    profilePictureURL: string,
     firstName: string,
     lastName: string,
-    userName: string,
     jobTitle: string,
-    id: string,
+    id: string | null,
 }
 
 export interface UserInfoState {
@@ -23,14 +19,14 @@ class UserInfo extends React.Component<UserInfoProps, UserInfoState> {
         this.state = {};
     }
     render() {
-        const { profilePic, lastName, firstName, jobTitle } = this.props
+        const { profilePictureURL, lastName, firstName, jobTitle } = this.props
         return (
             <div className="row">
                 <div className="col-1 dummy"></div>
                 <div className="col-10">
                     <div className="profile-container">
                         <div className="profile-pic-border">
-                            <img className="profile-pic" src={profilePic} alt="عکس پروفایل" />
+                            <img className="profile-pic" src={profilePictureURL} alt="عکس پروفایل کاربر" />
                         </div>
                         <div className="skewed-rectangle-container">
                             <div className="rectangle big skewed"></div>

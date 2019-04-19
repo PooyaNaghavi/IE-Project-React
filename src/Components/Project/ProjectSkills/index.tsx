@@ -21,7 +21,14 @@ class ProjectSkills extends React.Component<ProjectSkillsProps, ProjectSkillsSta
                 <div className="maharat-haye-lazem blue">مهارت‌های لازم:</div>
                 <div className="skills-list-container">
                     {this.props.skills.map(skill =>
-                        (<Skill key={skill.name} name={skill.name} point={skill.point} endorsed={true} disabled={true} />)
+                        (<Skill
+                            key={skill.name}
+                            name={skill.name}
+                            point={skill.point}
+                            endorsed={true}
+                            disabled={true}
+                            selfSkill={false}
+                        />)
                     )}
                 </div>
             </div>

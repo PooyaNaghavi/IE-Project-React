@@ -6,6 +6,8 @@
     border-radius: 4px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     white-space: nowrap;
+
+
 }
 
 .skill:hover {
@@ -62,4 +64,8 @@
 .skill-button.deleted:hover:before {
     content: '-';
     font-size: 16px;
+}
+
+.hidden {
+    display: none !important;
 }

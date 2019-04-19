@@ -27,8 +27,9 @@
 }
 
 .profile-pic {
-    width: calc(190px - 16px);
-    height: calc(190px - 16px);
+    width: 174px;
+    min-width: 174px !important;
+    height: 174px;
     border-radius: 16px;
     z-index: 5;
 }
@@ -74,4 +75,5 @@
 
 .first-name {
     margin-left: 8px;
+    margin-right: 8px;
 }
