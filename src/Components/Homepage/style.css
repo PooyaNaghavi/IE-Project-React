@@ -117,9 +117,24 @@
 .project-list {
   display: flex;
   flex-direction: column;
+  /* justify-content: stretch; */
+  align-items: stretch;
 }
 
 .place-holder-red::placeholder {
   color: red;
   opacity: 0.6;
+}
+
+.get-next-projects-page {
+    margin: 0 auto;
+    border: none;
+    background-color: #00AEBF; 
+    display: inline-block;
+    color: #ffffff;
+    text-align: center;
+    font-size: 18px;
+    border: none;
+    /* width: 160px; */
+    height: 42px;
 }

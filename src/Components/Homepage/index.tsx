@@ -15,6 +15,8 @@ interface HomeState {
   searchInput: string,
   searchPlaceHolder: string,
   searchPlaceHolderColor: string
+  projectsLimit: number,
+  projectsNextPageToken: number,
 }
 
 interface Props { }
@@ -27,11 +29,17 @@ class HomePage extends Component<Props, HomeState> {
       projects: [],
       searchInput: '',
       searchPlaceHolder: 'جستجو در جاب‌اونجا',
-      searchPlaceHolderColor: ''
+      searchPlaceHolderColor: '',
+      projectsLimit: 10,
+      projectsNextPageToken: 0,
     };
   }
 
   componentDidMount() {
+    this.updateUsers()
+    this.updateProjects()
+  }
+  updateUsers() {
     const profilesUrl: string = `${process.env.REACT_APP_BASE_URL}/users`;
     axios
       .get(profilesUrl, {})
@@ -44,13 +52,17 @@ class HomePage extends Component<Props, HomeState> {
       .catch((err: any) => {
         console.log(err);
       });
-    const projectsUrl: string = `${process.env.REACT_APP_BASE_URL}/projects`;
+  }
+
+  updateProjects() {
+    let projectsUrl: string = `${process.env.REACT_APP_BASE_URL}/projects?limit=${this.state.projectsLimit}&nextPageToken=${this.state.projectsNextPageToken}`;
     axios
       .get(projectsUrl, {})
       .then((response: any) => {
         console.log(response);
         this.setState({
-          projects: response.data
+          projects: response.data.projects,
+          projectsNextPageToken: response.data.nextPageToken,
         });
       })
       .catch((err: any) => {
@@ -109,6 +121,7 @@ class HomePage extends Component<Props, HomeState> {
                         deadlinePassed={project.deadline < Date.now()}
                       />
                     ))}
+                    <button className="get-next-projects-page" onClick={(e) => this.handleProjectsNextPageOnClick(e)}>بیشتر</button>
                   </div>
                 </div>
               </div>
@@ -119,6 +132,9 @@ class HomePage extends Component<Props, HomeState> {
         <Footer />
       </div>
     );
+  }
+  handleProjectsNextPageOnClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+    this.updateProjects()
   }
   handleSearchInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({

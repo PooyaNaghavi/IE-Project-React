@@ -9,6 +9,7 @@ export interface SkillProps {
     selfSkill: boolean,
     endorsed: boolean,
     disabled: boolean,
+    userToEndorse?: string | null,
 }
 
 export interface SkillState {
@@ -63,7 +64,7 @@ class Skill extends React.Component<SkillProps, SkillState> {
     handleEndorseSkill(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): any {
         e.preventDefault()
         axios.put(
-            `${process.env.REACT_APP_BASE_URL}/user/skill/${this.props.name}?id=${'1'}`,
+            `${process.env.REACT_APP_BASE_URL}/user/skill/${this.props.name}?id=${this.props.userToEndorse}`,
             // TODO: Change all these '1's to user from Cookies
             {
                 headers: {
