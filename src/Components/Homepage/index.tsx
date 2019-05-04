@@ -16,7 +16,7 @@ interface HomeState {
   searchPlaceHolder: string,
   searchPlaceHolderColor: string
   projectsLimit: number,
-  projectsNextPageToken: number,
+  projectsNextPageToken: number | null,
 }
 
 interface Props { }
@@ -24,13 +24,21 @@ interface Props { }
 class HomePage extends Component<Props, HomeState> {
   constructor(props: Readonly<Props>) {
     super(props);
+    // const fakeProject = {
+    //   imageUrl: "https://sample-videos.com/img/Sample-jpg-image-50kb.jpg",
+    //   title: "یه پروژه فیک",
+    //   description: "وقتی پروژه فیکه خب دیسکریپشنش هم فیک می‌شه طبیعتا دیگه",
+    //   budget: 100000,
+    //   skills: [],
+    //   id: 1003,
+    // }
     this.state = {
       users: [],
       projects: [],
       searchInput: '',
       searchPlaceHolder: 'جستجو در جاب‌اونجا',
       searchPlaceHolderColor: '',
-      projectsLimit: 10,
+      projectsLimit: 8,
       projectsNextPageToken: 0,
     };
   }
@@ -39,8 +47,11 @@ class HomePage extends Component<Props, HomeState> {
     this.updateUsers()
     this.updateProjects()
   }
-  updateUsers() {
-    const profilesUrl: string = `${process.env.REACT_APP_BASE_URL}/users`;
+  updateUsers(searchString?: string) {
+    let profilesUrl: string = `${process.env.REACT_APP_BASE_URL}/users`;
+    if (searchString) { // TODO: url o ina, and for projects
+      profilesUrl = `${process.env.REACT_APP_BASE_URL}/usersearch?search=${searchString}`
+    }
     axios
       .get(profilesUrl, {})
       .then((response: any) => {
@@ -61,11 +72,17 @@ class HomePage extends Component<Props, HomeState> {
       .then((response: any) => {
         console.log(response);
         this.setState({
-          projects: response.data.projects,
+          projects: [...this.state.projects, ...response.data.projects],
           projectsNextPageToken: response.data.nextPageToken,
         });
       })
       .catch((err: any) => {
+        if (err.message === 'Network Error' && !this.state.projects.length) {
+          this.setState({
+            // projects: [...this.state.projects, ...this.state.projects],
+            projectsNextPageToken: null,
+          });
+        }
         console.log(err);
       });
   }
@@ -96,7 +113,7 @@ class HomePage extends Component<Props, HomeState> {
                     type="text"
                     placeholder={searchPlaceHolder}
                   />
-                  <button className="search-button" onClick={(e) => this.handleProjectSearchOnClick(e)}>جستجو</button>
+                  <button className="custom-button search-button" onClick={(e) => this.handleProjectSearchOnClick(e)}>جستجو</button>
                 </div>
                 <div className="home-body">
                   <div className="user-search">
@@ -121,7 +138,16 @@ class HomePage extends Component<Props, HomeState> {
                         deadlinePassed={project.deadline < Date.now()}
                       />
                     ))}
-                    <button className="get-next-projects-page" onClick={(e) => this.handleProjectsNextPageOnClick(e)}>بیشتر</button>
+                    {
+                      this.state.projectsNextPageToken !== null
+                      &&
+                      <button
+                        className="custom-button get-next-projects-page-button"
+                        onClick={(e) => this.handleProjectsNextPageOnClick(e)}
+                      >
+                        بیشتر
+                      </button>
+                    }
                   </div>
                 </div>
               </div>
@@ -140,6 +166,7 @@ class HomePage extends Component<Props, HomeState> {
     this.setState({
       searchInput: e.target.value
     })
+    this.updateUsers()
   }
   handleProjectSearchOnClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     if (this.state.searchInput === '') {

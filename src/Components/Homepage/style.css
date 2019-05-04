@@ -126,7 +126,7 @@
   opacity: 0.6;
 }
 
-.get-next-projects-page {
+.get-next-projects-page-button {
     margin: 0 auto;
     border: none;
     background-color: #00AEBF; 
@@ -135,6 +135,20 @@
     text-align: center;
     font-size: 18px;
     border: none;
-    /* width: 160px; */
+    width: 100%;
     height: 42px;
+
+}
+
+.custom-button {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.custom-button:hover {
+  color: #00AEBF; 
+  background-color: #ffffff;
+  border: 2px solid #00AEBF;
+  
 }
