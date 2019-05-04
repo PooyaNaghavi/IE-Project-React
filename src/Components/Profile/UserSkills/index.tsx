@@ -68,7 +68,7 @@ class UserSkills extends React.Component<UserSkillsProps, UserSkillsState> {
                     <div className="col-10">
                         <div id="skills-container">
                             {skillsList.map(skill => {
-                                const endorsed = !!(skill.endorseUsers.filter((u: any) => u.id === '1').length)
+                                const endorsed = !!(skill.endorsements.filter((en: any) => en.endorserId === '1').length)
                                 const disabled = endorsed;
                                 const selfSkill = userId === '1'
                                 return (<Skill
