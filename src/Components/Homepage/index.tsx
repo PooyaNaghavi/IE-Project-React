@@ -13,6 +13,7 @@ interface HomeState {
   users: Array<any>,
   projects: Array<any>,
   searchInput: string,
+  userSearchInput: string,
   searchPlaceHolder: string,
   searchPlaceHolderColor: string
   projectsLimit: number,
@@ -36,6 +37,7 @@ class HomePage extends Component<Props, HomeState> {
       users: [],
       projects: [],
       searchInput: '',
+      userSearchInput: '',
       searchPlaceHolder: 'جستجو در جاب‌اونجا',
       searchPlaceHolderColor: '',
       projectsLimit: 8,
@@ -49,8 +51,8 @@ class HomePage extends Component<Props, HomeState> {
   }
   updateUsers(searchString?: string) {
     let profilesUrl: string = `${process.env.REACT_APP_BASE_URL}/users`;
-    if (searchString) { // TODO: url o ina, and for projects
-      profilesUrl = `${process.env.REACT_APP_BASE_URL}/usersearch?search=${searchString}`
+    if (searchString && searchString !== '') { // TODO: url o ina, and for projects
+      profilesUrl = `${process.env.REACT_APP_BASE_URL}/userssearch?search=${searchString}`
     }
     axios
       .get(profilesUrl, {})
@@ -65,16 +67,28 @@ class HomePage extends Component<Props, HomeState> {
       });
   }
 
-  updateProjects() {
+  updateProjects(searchString?: string) {
     let projectsUrl: string = `${process.env.REACT_APP_BASE_URL}/projects?limit=${this.state.projectsLimit}&nextPageToken=${this.state.projectsNextPageToken}`;
+    if (searchString) {
+      projectsUrl = `${process.env.REACT_APP_BASE_URL}/projectssearch?search=${searchString}`;
+    }
     axios
       .get(projectsUrl, {})
       .then((response: any) => {
         console.log(response);
-        this.setState({
-          projects: [...this.state.projects, ...response.data.projects],
-          projectsNextPageToken: response.data.nextPageToken,
-        });
+        if (this.state.searchInput !== '') {
+          // client is searching
+          this.setState({
+            projects: response.data.projects,
+            projectsNextPageToken: null,
+          });
+        } else {
+          // client is paginating
+          this.setState({
+            projects: [...this.state.projects, ...response.data.projects],
+            projectsNextPageToken: response.data.nextPageToken,
+          });
+        }
       })
       .catch((err: any) => {
         if (err.message === 'Network Error' && !this.state.projects.length) {
@@ -87,7 +101,7 @@ class HomePage extends Component<Props, HomeState> {
       });
   }
   render() {
-    const { users, searchPlaceHolder, searchInput, searchPlaceHolderColor } = this.state;
+    const { users, searchPlaceHolder, searchInput, userSearchInput, searchPlaceHolderColor } = this.state;
     return (
       <div>
         <Header />
@@ -122,6 +136,8 @@ class HomePage extends Component<Props, HomeState> {
                         className="user-search-input"
                         type="text"
                         placeholder="جستجو نام کاربر"
+                        onChange={e => this.handleUserSearchInputChange(e)}
+                        value={userSearchInput}
                       />
                     </div>
                     <div className="user-list">
@@ -159,22 +175,33 @@ class HomePage extends Component<Props, HomeState> {
       </div>
     );
   }
+
+  handleUserSearchInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    this.setState({
+      userSearchInput: e.target.value
+    })
+    this.updateUsers(this.state.userSearchInput)
+  }
+
   handleProjectsNextPageOnClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     this.updateProjects()
   }
+
   handleSearchInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
       searchInput: e.target.value
     })
-    this.updateUsers()
   }
+
   handleProjectSearchOnClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     if (this.state.searchInput === '') {
       this.setState({
         searchPlaceHolder: 'ورودی جستجو نمی‌تواند خالی باشد.',
         searchPlaceHolderColor: 'red',
       })
+      return
     }
+    this.updateProjects(this.state.searchInput)
   }
 }
 
