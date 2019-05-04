@@ -68,7 +68,7 @@ class UserSkills extends React.Component<UserSkillsProps, UserSkillsState> {
                     <div className="col-10">
                         <div id="skills-container">
                             {skillsList.map(skill => {
-                                const endorsed = !!(skill.endorses.filter((en: any) => en.endorserId === '1').length)
+                                const endorsed = !!(skill.endorses.filter((en: any) => en.endorser === '1').length)
                                 const disabled = endorsed;
                                 const selfSkill = userId === '1'
                                 return (<Skill
@@ -78,6 +78,7 @@ class UserSkills extends React.Component<UserSkillsProps, UserSkillsState> {
                                     selfSkill={selfSkill}
                                     name={skill.name}
                                     point={skill.point}
+                                    userToEndorse={userId}
                                 />)
                             })}
                         </div>
@@ -112,7 +113,7 @@ class UserSkills extends React.Component<UserSkillsProps, UserSkillsState> {
             }
         ).then((response: any) => {
             let skillsList = this.state.skills || this.props.skills
-            skillsList.push({ name: this.state.skillToAdd, point: 0, endorseUsers: [] })
+            skillsList.push({ name: this.state.skillToAdd, point: 0, endorses: [] })
             this.setState({
                 skills: skillsList,
                 skillToAdd: '',

@@ -51,13 +51,12 @@ class HomePage extends Component<Props, HomeState> {
   }
   updateUsers(searchString?: string) {
     let profilesUrl: string = `${process.env.REACT_APP_BASE_URL}/users`;
-    if (searchString && searchString !== '') { // TODO: url o ina, and for projects
+    if (searchString && searchString !== '') {
       profilesUrl = `${process.env.REACT_APP_BASE_URL}/userssearch?search=${searchString}`
     }
     axios
       .get(profilesUrl, {})
       .then((response: any) => {
-        console.log(response);
         this.setState({
           users: response.data
         });
@@ -79,7 +78,7 @@ class HomePage extends Component<Props, HomeState> {
         if (this.state.searchInput !== '') {
           // client is searching
           this.setState({
-            projects: response.data.projects,
+            projects: response.data,
             projectsNextPageToken: null,
           });
         } else {
@@ -191,6 +190,9 @@ class HomePage extends Component<Props, HomeState> {
     this.setState({
       searchInput: e.target.value
     })
+    if (!e.target.value.length) {
+      this.updateProjects()
+    }
   }
 
   handleProjectSearchOnClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {

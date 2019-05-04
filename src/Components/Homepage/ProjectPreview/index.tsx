@@ -40,7 +40,6 @@ class ProjectPreview extends Component<Props, State> {
     const hours = Math.floor(remainingTime / HOUR) % 24;
     const days = Math.floor(remainingTime / DAY);
 
-    console.log(seconds, minutes);
     return (
       <div className="project-preivew-remtime">
         <div className="remtime-title">زمان باقی مانده:</div>
@@ -61,41 +60,41 @@ class ProjectPreview extends Component<Props, State> {
     return !!this.state.redirectTo ? (
       <Redirect to={this.state.redirectTo} />
     ) : (
-      <div>
-        <div
-          className={`project-preview ${this.deadlinePassed ? "expire" : ""}`}
-          onClick={e => this.handleProjectClick(e)}
-        >
-          <img
-            className="project-preview-pic"
-            src={project.imageUrl}
-            alt="عکس پروژه"
-          />
-          <div className="project-preview-info-container">
-            <div className="project-preview-header">
-              <div className="project-preivew-title">{project.title}</div>
-              {!this.props.deadlinePassed
-                ? this.getRemainingTime(this.state.remainingTime)
-                : this.deadlinePassed()}
-            </div>
-            <div className="project-preivew-description">
-              {project.description}
-            </div>
-            <div className="project-preivew-budget">
-              <div className="budget-title">بودجه:</div>
-              <div className="budget-value">{project.budget}</div>
-              <div className="budget-currency">تومان</div>
-            </div>
-            <div className="project-preivew-skills">
-              <div className="project-preview-skills-title">مهارت‌ها:</div>
-              {project.skills.map((skill: any) => (
-                <HomepageSkill key={skill.name} skill={skill} />
-              ))}
+        <div>
+          <div
+            className={`project-preview ${this.deadlinePassed ? "expire" : ""}`}
+            onClick={e => this.handleProjectClick(e)}
+          >
+            <img
+              className="project-preview-pic"
+              src={project.imageUrl}
+              alt="عکس پروژه"
+            />
+            <div className="project-preview-info-container">
+              <div className="project-preview-header">
+                <div className="project-preivew-title">{project.title}</div>
+                {!this.props.deadlinePassed
+                  ? this.getRemainingTime(this.state.remainingTime)
+                  : this.deadlinePassed()}
+              </div>
+              <div className="project-preivew-description">
+                {project.description}
+              </div>
+              <div className="project-preivew-budget">
+                <div className="budget-title">بودجه:</div>
+                <div className="budget-value">{project.budget}</div>
+                <div className="budget-currency">تومان</div>
+              </div>
+              <div className="project-preivew-skills">
+                <div className="project-preview-skills-title">مهارت‌ها:</div>
+                {project.skills.map((skill: any) => (
+                  <HomepageSkill key={skill.name} skill={skill} />
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
   }
   handleProjectClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>): any {
     this.setState({
