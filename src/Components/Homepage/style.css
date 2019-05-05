@@ -1,7 +1,7 @@
 .homepage-blue-background {
   background-color: #b9eff2;
   min-height: 250px;
-  z-index: 2;
+  z-index: -1;
   margin-bottom: -240px;
   -moz-box-shadow: inset 0 0 4px rgb(86, 188, 194);
   -webkit-box-shadow: inset 0 0 4px rgb(86, 188, 194);
@@ -127,17 +127,16 @@
 }
 
 .get-next-projects-page-button {
-    margin: 0 auto;
-    border: none;
-    background-color: #00AEBF; 
-    display: inline-block;
-    color: #ffffff;
-    text-align: center;
-    font-size: 18px;
-    border: none;
-    width: 100%;
-    height: 42px;
-
+  margin: 0 auto;
+  border: none;
+  background-color: #00aebf;
+  display: inline-block;
+  color: #ffffff;
+  text-align: center;
+  font-size: 18px;
+  border: none;
+  width: 100%;
+  height: 42px;
 }
 
 .custom-button {
@@ -147,8 +146,7 @@
 }
 
 .custom-button:hover {
-  color: #00AEBF; 
+  color: #00aebf;
   background-color: #ffffff;
-  border: 2px solid #00AEBF;
-  
+  border: 2px solid #00aebf;
 }

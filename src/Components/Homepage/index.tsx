@@ -91,10 +91,20 @@ class HomePage extends Component<Props, HomeState> {
           });
         } else {
           // client is paginating
-          this.setState({
-            projects: [...this.state.projects, ...response.data.projects],
-            projectsNextPageToken: response.data.nextPageToken
-          });
+          console.log(response.data);
+          console.log(response.data.showLoadMoreFlag);
+          if (response.data.showLoadMoreFlag == true) {
+            this.setState({
+              projects: [...this.state.projects, ...response.data.projects],
+              projectsNextPageToken: null
+            });
+          } else {
+            this.setState({
+              projects: [...this.state.projects, ...response.data.projects],
+              projectsNextPageToken: response.data.nextPageToken
+            });
+          }
+          console.log(response.data.nextPageToken);
         }
       })
       .catch((err: any) => {
