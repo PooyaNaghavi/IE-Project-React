@@ -62,7 +62,9 @@ class ProjectPreview extends Component<Props, State> {
     ) : (
       <div>
         <div
-          className={`project-preview ${this.deadlinePassed ? "expire" : ""}`}
+          className={`project-preview ${
+            this.props.deadlinePassed ? "expire" : ""
+          }`}
           onClick={e => this.handleProjectClick(e)}
         >
           <img
