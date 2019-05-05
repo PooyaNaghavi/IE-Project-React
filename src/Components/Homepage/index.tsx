@@ -10,17 +10,17 @@ import UserPreview from "./UserPreview/index";
 import ProjectPreview from "./ProjectPreview/index";
 
 interface HomeState {
-  users: Array<any>,
-  projects: Array<any>,
-  searchInput: string,
-  userSearchInput: string,
-  searchPlaceHolder: string,
-  searchPlaceHolderColor: string
-  projectsLimit: number,
-  projectsNextPageToken: number | null,
+  users: Array<any>;
+  projects: Array<any>;
+  searchInput: string;
+  userSearchInput: string;
+  searchPlaceHolder: string;
+  searchPlaceHolderColor: string;
+  projectsLimit: number;
+  projectsNextPageToken: number | null;
 }
 
-interface Props { }
+interface Props {}
 
 class HomePage extends Component<Props, HomeState> {
   constructor(props: Readonly<Props>) {
@@ -36,23 +36,25 @@ class HomePage extends Component<Props, HomeState> {
     this.state = {
       users: [],
       projects: [],
-      searchInput: '',
-      userSearchInput: '',
-      searchPlaceHolder: 'جستجو در جاب‌اونجا',
-      searchPlaceHolderColor: '',
+      searchInput: "",
+      userSearchInput: "",
+      searchPlaceHolder: "جستجو در جاب‌اونجا",
+      searchPlaceHolderColor: "",
       projectsLimit: 8,
-      projectsNextPageToken: 0,
+      projectsNextPageToken: 0
     };
   }
 
   componentDidMount() {
-    this.updateUsers()
-    this.updateProjects()
+    this.updateUsers();
+    this.updateProjects();
   }
   updateUsers(searchString?: string) {
     let profilesUrl: string = `${process.env.REACT_APP_BASE_URL}/users`;
-    if (searchString && searchString !== '') {
-      profilesUrl = `${process.env.REACT_APP_BASE_URL}/userssearch?search=${searchString}`
+    if (searchString && searchString !== "") {
+      profilesUrl = `${
+        process.env.REACT_APP_BASE_URL
+      }/userssearch?search=${searchString}`;
     }
     axios
       .get(profilesUrl, {})
@@ -67,40 +69,52 @@ class HomePage extends Component<Props, HomeState> {
   }
 
   updateProjects(searchString?: string) {
-    let projectsUrl: string = `${process.env.REACT_APP_BASE_URL}/projects?limit=${this.state.projectsLimit}&nextPageToken=${this.state.projectsNextPageToken}`;
+    let projectsUrl: string = `${
+      process.env.REACT_APP_BASE_URL
+    }/projects?limit=${this.state.projectsLimit}&nextPageToken=${
+      this.state.projectsNextPageToken
+    }`;
     if (searchString) {
-      projectsUrl = `${process.env.REACT_APP_BASE_URL}/projectssearch?search=${searchString}`;
+      projectsUrl = `${
+        process.env.REACT_APP_BASE_URL
+      }/projectssearch?search=${searchString}`;
     }
     axios
       .get(projectsUrl, {})
       .then((response: any) => {
         console.log(response);
-        if (this.state.searchInput !== '') {
+        if (this.state.searchInput !== "") {
           // client is searching
           this.setState({
             projects: response.data,
-            projectsNextPageToken: null,
+            projectsNextPageToken: null
           });
         } else {
           // client is paginating
           this.setState({
             projects: [...this.state.projects, ...response.data.projects],
-            projectsNextPageToken: response.data.nextPageToken,
+            projectsNextPageToken: response.data.nextPageToken
           });
         }
       })
       .catch((err: any) => {
-        if (err.message === 'Network Error' && !this.state.projects.length) {
+        if (err.message === "Network Error" && !this.state.projects.length) {
           this.setState({
             // projects: [...this.state.projects, ...this.state.projects],
-            projectsNextPageToken: null,
+            projectsNextPageToken: null
           });
         }
         console.log(err);
       });
   }
   render() {
-    const { users, searchPlaceHolder, searchInput, userSearchInput, searchPlaceHolderColor } = this.state;
+    const {
+      users,
+      searchPlaceHolder,
+      searchInput,
+      userSearchInput,
+      searchPlaceHolderColor
+    } = this.state;
     return (
       <div>
         <Header />
@@ -126,7 +140,12 @@ class HomePage extends Component<Props, HomeState> {
                     type="text"
                     placeholder={searchPlaceHolder}
                   />
-                  <button className="custom-button search-button" onClick={(e) => this.handleProjectSearchOnClick(e)}>جستجو</button>
+                  <button
+                    className="custom-button search-button"
+                    onClick={e => this.handleProjectSearchOnClick(e)}
+                  >
+                    جستجو
+                  </button>
                 </div>
                 <div className="home-body">
                   <div className="user-search">
@@ -153,16 +172,14 @@ class HomePage extends Component<Props, HomeState> {
                         deadlinePassed={project.deadline < Date.now()}
                       />
                     ))}
-                    {
-                      this.state.projectsNextPageToken !== null
-                      &&
+                    {this.state.projectsNextPageToken !== null && (
                       <button
                         className="custom-button get-next-projects-page-button"
-                        onClick={(e) => this.handleProjectsNextPageOnClick(e)}
+                        onClick={e => this.handleProjectsNextPageOnClick(e)}
                       >
                         بیشتر
                       </button>
-                    }
+                    )}
                   </div>
                 </div>
               </div>
@@ -178,32 +195,36 @@ class HomePage extends Component<Props, HomeState> {
   handleUserSearchInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
       userSearchInput: e.target.value
-    })
-    this.updateUsers(this.state.userSearchInput)
+    });
+    this.updateUsers(e.target.value);
   }
 
-  handleProjectsNextPageOnClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-    this.updateProjects()
+  handleProjectsNextPageOnClick(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void {
+    this.updateProjects();
   }
 
   handleSearchInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
       searchInput: e.target.value
-    })
+    });
     if (!e.target.value.length) {
-      this.updateProjects()
+      this.updateProjects();
     }
   }
 
-  handleProjectSearchOnClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-    if (this.state.searchInput === '') {
+  handleProjectSearchOnClick(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void {
+    if (this.state.searchInput === "") {
       this.setState({
-        searchPlaceHolder: 'ورودی جستجو نمی‌تواند خالی باشد.',
-        searchPlaceHolderColor: 'red',
-      })
-      return
+        searchPlaceHolder: "ورودی جستجو نمی‌تواند خالی باشد.",
+        searchPlaceHolderColor: "red"
+      });
+      return;
     }
-    this.updateProjects(this.state.searchInput)
+    this.updateProjects(this.state.searchInput);
   }
 }
 
