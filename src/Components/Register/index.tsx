@@ -16,7 +16,7 @@ class index extends Component<Props, State> {
       password: "",
       dupPassword: "",
       jobTitle: "",
-      profilePicURL: "",
+      profilePictureURL: "",
       bio: "",
       status: "initial",
       errorValue: ""
@@ -25,113 +25,113 @@ class index extends Component<Props, State> {
 
   render() {
     return this.state.status === "logged-in" ? (
-      <Redirect to="/home" />
+      <Redirect to="/" />
     ) : (
-      <div>
-        <form
-          onSubmit={e => this.submitRegisterFrom(e)}
-          className="register-form"
-          action="register"
-          method="POST"
-        >
-          <h1 className="register-header">ثبت‌نام</h1>
-
-          <legend className="header-name">
-            <span className="number">۱ </span> اطلاعات پایه{" "}
-          </legend>
-          <fieldset>
-            <input
-              onChange={e => this.handleFirstNameInputChange(e)}
-              className="box-style"
-              type="text"
-              id="firstname"
-              name="user_firstname"
-              placeholder="نام"
-              value={this.state.firstName}
-            />
-            <input
-              onChange={e => this.handleLastNameInputChange(e)}
-              className="box-style"
-              type="text"
-              id="lastname"
-              name="user_lastname"
-              placeholder="نام خانوادگی"
-              value={this.state.lastName}
-            />
-            <input
-              onChange={e => this.handleUserNameInputChange(e)}
-              className="box-style"
-              type="text"
-              id="username"
-              name="user_username"
-              placeholder="نام کابردی"
-              value={this.state.userName}
-            />
-            <input
-              onChange={e => this.handlePasswordInputChange(e)}
-              className="box-style"
-              type="password"
-              id="password"
-              name="user_password"
-              placeholder="کلمه‌ی عبور"
-              value={this.state.password}
-            />
-            <input
-              onChange={e => this.handleDupPasswordInputChange(e)}
-              className="box-style"
-              type="password"
-              id="dupPassword"
-              name="user_dupPassword"
-              placeholder="تکرار کلمه‌ی عبور"
-              value={this.state.dupPassword}
-            />
-          </fieldset>
-          <legend className="header-name">
-            <span className="number">۲</span> پروفایل{" "}
-          </legend>
-          <fieldset>
-            <input
-              onChange={e => this.handleJobTitleInputChange(e)}
-              className="box-style"
-              type="text"
-              id="jobTitle"
-              name="user_jobTitle"
-              placeholder="عنوان شغلی"
-              value={this.state.jobTitle}
-            />
-            <input
-              onChange={e => this.handleProfilePicUrlInputChange(e)}
-              className="box-style"
-              type="text"
-              id="profileUrl"
-              name="user_profileUrl"
-              placeholder="لینک عکس پروفایل"
-              value={this.state.profilePicURL}
-            />
-            <textarea
-              onChange={e => this.handleBioInputChange(e)}
-              className="box-style bio-box-style"
-              id="bio"
-              name="user_bio"
-              placeholder="بیو"
-              value={this.state.bio}
-            />
-          </fieldset>
-          <fieldset />
-          <Popup
-            trigger={
-              <button className="button" type="submit">
-                ثبت‌نام
-              </button>
-            }
-            open={status == "error"}
-            position="right center"
+        <div>
+          <form
+            onSubmit={e => this.submitRegisterFrom(e)}
+            className="register-form"
+            action="register"
+            method="POST"
           >
-            <div> {this.state.errorValue} </div>
-          </Popup>
-        </form>
-      </div>
-    );
+            <h1 className="register-header">ثبت‌نام</h1>
+
+            <legend className="header-name">
+              <span className="number">۱ </span> اطلاعات پایه{" "}
+            </legend>
+            <fieldset>
+              <input
+                onChange={e => this.handleFirstNameInputChange(e)}
+                className="box-style"
+                type="text"
+                id="firstname"
+                name="user_firstname"
+                placeholder="نام"
+                value={this.state.firstName}
+              />
+              <input
+                onChange={e => this.handleLastNameInputChange(e)}
+                className="box-style"
+                type="text"
+                id="lastname"
+                name="user_lastname"
+                placeholder="نام خانوادگی"
+                value={this.state.lastName}
+              />
+              <input
+                onChange={e => this.handleUserNameInputChange(e)}
+                className="box-style"
+                type="text"
+                id="username"
+                name="user_username"
+                placeholder="نام کابری"
+                value={this.state.userName}
+              />
+              <input
+                onChange={e => this.handlePasswordInputChange(e)}
+                className="box-style"
+                type="password"
+                id="password"
+                name="user_password"
+                placeholder="کلمه‌ی عبور"
+                value={this.state.password}
+              />
+              <input
+                onChange={e => this.handleDupPasswordInputChange(e)}
+                className="box-style"
+                type="password"
+                id="dupPassword"
+                name="user_dupPassword"
+                placeholder="تکرار کلمه‌ی عبور"
+                value={this.state.dupPassword}
+              />
+            </fieldset>
+            <legend className="header-name">
+              <span className="number">۲</span> پروفایل{" "}
+            </legend>
+            <fieldset>
+              <input
+                onChange={e => this.handleJobTitleInputChange(e)}
+                className="box-style"
+                type="text"
+                id="jobTitle"
+                name="user_jobTitle"
+                placeholder="عنوان شغلی"
+                value={this.state.jobTitle}
+              />
+              <input
+                onChange={e => this.handleprofilePictureURLInputChange(e)}
+                className="box-style"
+                type="text"
+                id="profileUrl"
+                name="user_profileUrl"
+                placeholder="لینک عکس پروفایل"
+                value={this.state.profilePictureURL}
+              />
+              <textarea
+                onChange={e => this.handleBioInputChange(e)}
+                className="box-style bio-box-style"
+                id="bio"
+                name="user_bio"
+                placeholder="بیو"
+                value={this.state.bio}
+              />
+            </fieldset>
+            <fieldset />
+            <Popup
+              trigger={
+                <button className="button" type="submit">
+                  ثبت‌نام
+              </button>
+              }
+              open={this.state.status === "error" && this.state.errorValue.length > 0}
+              position="right center"
+            >
+              <div> {this.state.errorValue} </div>
+            </Popup>
+          </form>
+        </div>
+      );
   }
   handleDupPasswordInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({ dupPassword: e.target.value });
@@ -139,8 +139,8 @@ class index extends Component<Props, State> {
   handleBioInputChange(e: React.ChangeEvent<HTMLTextAreaElement>): void {
     this.setState({ bio: e.target.value });
   }
-  handleProfilePicUrlInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    this.setState({ profilePicURL: e.target.value });
+  handleprofilePictureURLInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    this.setState({ profilePictureURL: e.target.value });
   }
   handleJobTitleInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({ jobTitle: e.target.value });
@@ -166,7 +166,7 @@ class index extends Component<Props, State> {
       password,
       dupPassword,
       jobTitle,
-      profilePicURL,
+      profilePictureURL,
       bio
     } = this.state;
     console.log(password);
@@ -192,7 +192,7 @@ class index extends Component<Props, State> {
         userName !== `` &&
         password !== `` &&
         jobTitle !== `` &&
-        profilePicURL !== `` &&
+        profilePictureURL !== `` &&
         bio !== ``
       )
     ) {
@@ -203,6 +203,7 @@ class index extends Component<Props, State> {
         dupPassword: ""
       });
     } else {
+      console.log('in else')
       const url: string = `${process.env.REACT_APP_BASE_URL}/register`;
       console.log(url);
       axios
@@ -214,7 +215,7 @@ class index extends Component<Props, State> {
             userName,
             password,
             jobTitle,
-            profilePicURL,
+            profilePictureURL,
             bio
           },
           {
@@ -226,7 +227,7 @@ class index extends Component<Props, State> {
         )
         .then((response: any) => {
           localStorage.setItem("JWT", `Bearer ${response.data.JWTToken}`);
-          this.setState({ status: "logged-in" });
+          this.setState({ status: "logged-in", errorValue: "" });
         })
         .catch((err: any) => {
           this.setState({
@@ -242,7 +243,7 @@ class index extends Component<Props, State> {
 
 export default index;
 
-interface Props {}
+interface Props { }
 
 interface State {
   firstName: string;
@@ -251,7 +252,7 @@ interface State {
   password: string;
   dupPassword: string;
   jobTitle: string;
-  profilePicURL: string;
+  profilePictureURL: string;
   bio: string;
   status: string;
   errorValue: string;

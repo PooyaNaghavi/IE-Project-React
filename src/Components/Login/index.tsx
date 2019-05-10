@@ -21,51 +21,51 @@ class index extends Component<Props, State> {
     const { status } = this.state;
     console.log(status === "error");
     return status === "logged-in" ? (
-      <Redirect to="/home" />
+      <Redirect to="/" />
     ) : (
-      <div>
-        <form
-          onSubmit={e => this.submitLoginFrom(e)}
-          className="login-form"
-          action="index.html"
-          method="POST"
-        >
-          <h1 className="login-header">ورود</h1>
-
-          <fieldset>
-            <input
-              onChange={e => this.handleUsernameInputChange(e)}
-              className="login-box-style"
-              type="text"
-              id="username"
-              name="user_username"
-              placeholder="نام کابردی"
-              value={this.state.usernameValue}
-            />
-            <input
-              onChange={e => this.handlePasswordInputChange(e)}
-              className="login-box-style"
-              type="password"
-              id="password"
-              name="user_password"
-              placeholder="کلمه‌ی عبور"
-              value={this.state.passwordValue}
-            />
-          </fieldset>
-          <Popup
-            trigger={
-              <button className="login-button" type="submit">
-                ورود
-              </button>
-            }
-            open={status == "error"}
-            position="right center"
+        <div>
+          <form
+            onSubmit={e => this.submitLoginFrom(e)}
+            className="login-form"
+            action="index.html"
+            method="POST"
           >
-            <div> نام کاربری یا رمز عبور نادرست است. </div>
-          </Popup>
-        </form>
-      </div>
-    );
+            <h1 className="login-header">ورود</h1>
+
+            <fieldset>
+              <input
+                onChange={e => this.handleUsernameInputChange(e)}
+                className="login-box-style"
+                type="text"
+                id="username"
+                name="user_username"
+                placeholder="نام کابردی"
+                value={this.state.usernameValue}
+              />
+              <input
+                onChange={e => this.handlePasswordInputChange(e)}
+                className="login-box-style"
+                type="password"
+                id="password"
+                name="user_password"
+                placeholder="کلمه‌ی عبور"
+                value={this.state.passwordValue}
+              />
+            </fieldset>
+            <Popup
+              trigger={
+                <button className="login-button" type="submit">
+                  ورود
+              </button>
+              }
+              open={this.state.status == "error"}
+              position="right center"
+            >
+              <div> نام کاربری یا رمز عبور نادرست است. </div>
+            </Popup>
+          </form>
+        </div>
+      );
   }
   handleErrorButton(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     this.setState({ status: "initial" });
@@ -107,7 +107,7 @@ class index extends Component<Props, State> {
 
 export default index;
 
-interface Props {}
+interface Props { }
 
 interface State {
   usernameValue: string;
