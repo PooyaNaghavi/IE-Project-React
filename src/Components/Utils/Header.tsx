@@ -13,7 +13,7 @@ class Header extends Component<Props, State> {
           <img className="header-logo" src={logoPic} alt="جاب‌اونجا" />
         </Link>
         <div id="spacer" className="header-spacer" />
-        <Link to="/user?id=1" id="header-account" className="header-item">
+        <Link to={`/user?id=${localStorage.getItem('userId')}`} id="header-account" className="header-item">
           حساب کاربری
         </Link>
         <Link
@@ -35,5 +35,5 @@ class Header extends Component<Props, State> {
 
 export default Header;
 
-interface Props {}
-interface State {}
+interface Props { }
+interface State { }

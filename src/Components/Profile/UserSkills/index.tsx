@@ -33,7 +33,7 @@ class UserSkills extends React.Component<UserSkillsProps, UserSkillsState> {
     console.log(skillsList);
     return (
       <div>
-        {userId === "1" && (
+        {userId === localStorage.getItem('userId') && (
           <div className="row">
             <div className="col-1 dummy" />
             <div className="col-10">
@@ -57,10 +57,10 @@ class UserSkills extends React.Component<UserSkillsProps, UserSkillsState> {
                       this.userHasThisSkill(skill) ? (
                         <option key={skill.name} style={{ display: "none" }} />
                       ) : (
-                        <option key={skill.name} value={skill.name}>
-                          {skill.name}
-                        </option>
-                      )
+                          <option key={skill.name} value={skill.name}>
+                            {skill.name}
+                          </option>
+                        )
                     )}
                   </select>
                   <button type="submit" id="add-skill-button">
@@ -79,10 +79,10 @@ class UserSkills extends React.Component<UserSkillsProps, UserSkillsState> {
             <div id="skills-container">
               {skillsList.map(skill => {
                 const endorsed = !!skill.endorses.filter(
-                  (en: any) => en.endorser === "1"
+                  (en: any) => en.endorser === localStorage.getItem('userId')
                 ).length;
                 const disabled = endorsed;
-                const selfSkill = userId === "1";
+                const selfSkill = userId === localStorage.getItem('userId');
                 return (
                   <Skill
                     key={skill.name}
@@ -125,7 +125,7 @@ class UserSkills extends React.Component<UserSkillsProps, UserSkillsState> {
           {
             headers: {
               "content-type": "application/json; charset=utf-8",
-              Autorization: localStorage.getItem("JWT")
+              Authorization: localStorage.getItem("JWT")
             }
           }
         )

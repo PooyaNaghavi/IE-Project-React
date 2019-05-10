@@ -30,50 +30,50 @@ class ProjectBid extends React.Component<ProjectBidProps, ProjectBidState> {
     const { deadlinePassed, alreadyBid } = this.props;
     const { userHasBid, error } = this.state;
 
-    return localStorage.getItem("JWT") ? (
+    return !localStorage.getItem("JWT") ? (
       <Redirect to="/login" />
     ) : (
-      <div className="bid-status-container section-container">
-        <div className="sabt-e-pishnahad">ثبت پیشنهاد</div>
-        {!deadlinePassed && !alreadyBid && !userHasBid && (
-          <form
-            className="insert-bid-form"
-            onSubmit={e => this.handleSubmit(e)}
-            method="POST"
-          >
-            <div className="form-input-container">
-              <input
-                className="insert-bid-input"
-                type="number"
-                onChange={e => this.handleInputChange(e)}
-                placeholder="پیشنهاد خود را وارد کنید"
-              />
-              <div className="form-input-text">تومان</div>
-            </div>
-            <button className="insert-bid-button" type="submit">
-              ارسال
+        <div className="bid-status-container section-container">
+          <div className="sabt-e-pishnahad">ثبت پیشنهاد</div>
+          {!deadlinePassed && !alreadyBid && !userHasBid && (
+            <form
+              className="insert-bid-form"
+              onSubmit={e => this.handleSubmit(e)}
+              method="POST"
+            >
+              <div className="form-input-container">
+                <input
+                  className="insert-bid-input"
+                  type="number"
+                  onChange={e => this.handleInputChange(e)}
+                  placeholder="پیشنهاد خود را وارد کنید"
+                />
+                <div className="form-input-text">تومان</div>
+              </div>
+              <button className="insert-bid-button" type="submit">
+                ارسال
             </button>
-          </form>
-        )}
-        {!deadlinePassed && (alreadyBid || userHasBid) && (
-          <div className="already-bid">
-            <i className="flaticon-check-mark" />
-            <div>شما قبلا پیشنهاد خود را ثبت کرده‌اید</div>
+            </form>
+          )}
+          {!deadlinePassed && (alreadyBid || userHasBid) && (
+            <div className="already-bid">
+              <i className="flaticon-check-mark" />
+              <div>شما قبلا پیشنهاد خود را ثبت کرده‌اید</div>
+            </div>
+          )}
+          {deadlinePassed && (
+            <div className="bid-deadline-passed">
+              <i className="flaticon-danger" />
+              <div>مهلت ارسال پیشنهاد برای این پروژه به پایان رسیده است!</div>
+            </div>
+          )}
+          {error && (
+            <div className="project-bid-error">
+              درخواست شما با خطا مواجه شد، لطفا دوباره تلاش کنید
           </div>
-        )}
-        {deadlinePassed && (
-          <div className="bid-deadline-passed">
-            <i className="flaticon-danger" />
-            <div>مهلت ارسال پیشنهاد برای این پروژه به پایان رسیده است!</div>
-          </div>
-        )}
-        {error && (
-          <div className="project-bid-error">
-            درخواست شما با خطا مواجه شد، لطفا دوباره تلاش کنید
-          </div>
-        )}
-      </div>
-    );
+          )}
+        </div>
+      );
   }
   handleInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
@@ -87,7 +87,7 @@ class ProjectBid extends React.Component<ProjectBidProps, ProjectBidState> {
     axios
       .post(
         `${process.env.REACT_APP_BASE_URL}/project/bid?id=${
-          this.props.projectId
+        this.props.projectId
         }`,
         {
           amount: this.state.amount
@@ -95,7 +95,7 @@ class ProjectBid extends React.Component<ProjectBidProps, ProjectBidState> {
         {
           headers: {
             "content-type": "application/json; charset=utf-8",
-            Autorization: localStorage.getItem("JWT")
+            Authorization: localStorage.getItem("JWT")
           }
         }
       )

@@ -6,6 +6,7 @@ import Header from "../Utils/Header";
 import Cookies from "universal-cookie";
 import Popup from "reactjs-popup";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 
 class index extends Component<Props, State> {
   constructor(props: Readonly<Props>) {
@@ -39,7 +40,7 @@ class index extends Component<Props, State> {
                 type="text"
                 id="username"
                 name="user_username"
-                placeholder="نام کابردی"
+                placeholder="نام کاربری"
                 value={this.state.usernameValue}
               />
               <input
@@ -51,6 +52,7 @@ class index extends Component<Props, State> {
                 placeholder="کلمه‌ی عبور"
                 value={this.state.passwordValue}
               />
+              <Link to="/register" >ثبت نام نکرده‌اید؟</Link>
             </fieldset>
             <Popup
               trigger={
@@ -58,13 +60,14 @@ class index extends Component<Props, State> {
                   ورود
               </button>
               }
-              open={this.state.status == "error"}
+
+              open={this.state.status === "error"}
               position="right center"
             >
               <div> نام کاربری یا رمز عبور نادرست است. </div>
             </Popup>
           </form>
-        </div>
+        </div >
       );
   }
   handleErrorButton(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
@@ -91,12 +94,14 @@ class index extends Component<Props, State> {
         {
           headers: {
             "content-type": "application/json; charset=utf-8",
-            Autorization: localStorage.getItem("JWT")
+            Authorization: localStorage.getItem("JWT")
           }
         }
       )
       .then((response: any) => {
-        localStorage.setItem("JWT", `Bearer ${response.data.JWTToken}`);
+        console.log(response)
+        localStorage.setItem("JWT", `Bearer ${response.data.jwttoken}`);
+        localStorage.setItem("userId", response.data.userId);
         this.setState({ status: "logged-in" });
       })
       .catch((err: any) => {

@@ -55,7 +55,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
       .get(`${process.env.REACT_APP_BASE_URL}/user?id=${userId}`, {
         headers: {
           "content-type": "application/json; charset=utf-8",
-          Autorization: localStorage.getItem("JWT")
+          Authorization: localStorage.getItem("JWT")
         }
       })
       .then((response: any) => {
@@ -92,34 +92,34 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
       skills,
       allSkills
     } = this.state;
-    return localStorage.getItem("JWT") ? (
+    return !localStorage.getItem("JWT") ? (
       <Redirect to="/login" />
     ) : (
-      <div>
-        <Header />
-        <div className="row profile-blue-background" />
-        <div className="container body-container">
-          <UserInfo
-            firstName={firstName}
-            lastName={lastName}
-            id={userId}
-            jobTitle={jobTitle}
-            profilePictureURL={profilePictureURL}
-          />
-          <div className="row">
-            <div className="col-1 dummy" />
-            <div className="col-10">
-              <div id="description">
-                <p id="bio-text">{bio}</p>
+        <div>
+          <Header />
+          <div className="row profile-blue-background" />
+          <div className="container body-container">
+            <UserInfo
+              firstName={firstName}
+              lastName={lastName}
+              id={userId}
+              jobTitle={jobTitle}
+              profilePictureURL={profilePictureURL}
+            />
+            <div className="row">
+              <div className="col-1 dummy" />
+              <div className="col-10">
+                <div id="description">
+                  <p id="bio-text">{bio}</p>
+                </div>
               </div>
+              <div className="col-1 dummy" />
             </div>
-            <div className="col-1 dummy" />
+            <UserSkills skills={skills} allSkills={allSkills} userId={userId} />
           </div>
-          <UserSkills skills={skills} allSkills={allSkills} userId={userId} />
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    );
+      );
   }
 }
 
