@@ -124,7 +124,8 @@ class UserSkills extends React.Component<UserSkillsProps, UserSkillsState> {
           },
           {
             headers: {
-              "content-type": "application/json; charset=utf-8"
+              "content-type": "application/json; charset=utf-8",
+              Autorization: localStorage.getItem("JWT")
             }
           }
         )

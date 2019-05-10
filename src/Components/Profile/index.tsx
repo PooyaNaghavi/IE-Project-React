@@ -6,6 +6,7 @@ import Header from "../Utils/Header";
 import UserInfo from "./UserInfo";
 import axios from "axios";
 import UserSkills from "./UserSkills";
+import { Redirect } from "react-router";
 
 export interface ProfileProps {
   location: any;
@@ -53,7 +54,8 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/user?id=${userId}`, {
         headers: {
-          "content-type": "application/json; charset=utf-8"
+          "content-type": "application/json; charset=utf-8",
+          Autorization: localStorage.getItem("JWT")
         }
       })
       .then((response: any) => {
@@ -90,7 +92,9 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
       skills,
       allSkills
     } = this.state;
-    return (
+    return localStorage.getItem("JWT") ? (
+      <Redirect to="/login" />
+    ) : (
       <div>
         <Header />
         <div className="row profile-blue-background" />

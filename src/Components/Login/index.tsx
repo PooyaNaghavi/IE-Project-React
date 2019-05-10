@@ -90,13 +90,13 @@ class index extends Component<Props, State> {
         { userName: usernameValue, password: passwordValue },
         {
           headers: {
-            "content-type": "application/json; charset=utf-8"
+            "content-type": "application/json; charset=utf-8",
+            Autorization: localStorage.getItem("JWT")
           }
         }
       )
       .then((response: any) => {
-        const cookies = new Cookies();
-        cookies.set("ContextUser", usernameValue, { path: "/" });
+        localStorage.setItem("JWT", `Bearer ${response.data.JWTToken}`);
         this.setState({ status: "logged-in" });
       })
       .catch((err: any) => {

@@ -70,7 +70,8 @@ class Skill extends React.Component<SkillProps, SkillState> {
         // TODO: Change all these '1's to user from Cookies
         {
           headers: {
-            "content-type": "application/json; charset=utf-8"
+            "content-type": "application/json; charset=utf-8",
+            Autorization: localStorage.getItem("JWT")
           }
         }
       )
@@ -99,7 +100,8 @@ class Skill extends React.Component<SkillProps, SkillState> {
         // TODO: Change all these '1's to user from Cookies
         {
           headers: {
-            "content-type": "application/json; charset=utf-8"
+            "content-type": "application/json; charset=utf-8",
+            Autorization: localStorage.getItem("JWT")
           }
         }
       )

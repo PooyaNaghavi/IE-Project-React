@@ -64,7 +64,8 @@ class Project extends React.Component<ProjectProps, ProjectState> {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/project?id=${projectId}`, {
         headers: {
-          "content-type": "application/json; charset=utf-8"
+          "content-type": "application/json; charset=utf-8",
+          Autorization: localStorage.getItem("JWT")
         }
       })
       .then((response: any) => {
@@ -113,40 +114,39 @@ class Project extends React.Component<ProjectProps, ProjectState> {
       error
     } = this.state;
 
-
     return error ? (
       <div>خطا، لطفا دوباره تلاش کنید</div>
     ) : (
-        <div>
-          <Header />
-          <div className="row project-blue-background" />
-          <div className="container body-container">
-            <div className="row">
-              <div className="col-1 dummy" />
-              <div className="col-10">
-                <div className="project-container">
-                  <ProjectInfo
-                    pic={pic}
-                    title={title}
-                    deadline={deadline}
-                    budget={budget}
-                    winner={winner}
-                    description={description}
-                  />
-                  <ProjectSkills skills={skills} />
-                  <ProjectBid
-                    projectId={projectId}
-                    deadlinePassed={deadline ? deadline < Date.now() : false}
-                    alreadyBid={userAlreadyBid}
-                  />
-                </div>
+      <div>
+        <Header />
+        <div className="row project-blue-background" />
+        <div className="container body-container">
+          <div className="row">
+            <div className="col-1 dummy" />
+            <div className="col-10">
+              <div className="project-container">
+                <ProjectInfo
+                  pic={pic}
+                  title={title}
+                  deadline={deadline}
+                  budget={budget}
+                  winner={winner}
+                  description={description}
+                />
+                <ProjectSkills skills={skills} />
+                <ProjectBid
+                  projectId={projectId}
+                  deadlinePassed={deadline ? deadline < Date.now() : false}
+                  alreadyBid={userAlreadyBid}
+                />
               </div>
-              <div className="col-1 dummy" />
             </div>
+            <div className="col-1 dummy" />
           </div>
-          <Footer />
         </div>
-      );
+        <Footer />
+      </div>
+    );
   }
 }
 

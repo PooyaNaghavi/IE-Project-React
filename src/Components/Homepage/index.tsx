@@ -8,6 +8,7 @@ import Header from "../Utils/Header";
 import projectPic from "../Project/assets/Project.jpg";
 import UserPreview from "./UserPreview/index";
 import ProjectPreview from "./ProjectPreview/index";
+import { Redirect } from "react-router";
 
 interface HomeState {
   users: Array<any>;
@@ -57,7 +58,12 @@ class HomePage extends Component<Props, HomeState> {
       }/userssearch?search=${searchString}`;
     }
     axios
-      .get(profilesUrl, {})
+      .get(profilesUrl, {
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          Autorization: localStorage.getItem("JWT")
+        }
+      })
       .then((response: any) => {
         this.setState({
           users: response.data
@@ -80,7 +86,12 @@ class HomePage extends Component<Props, HomeState> {
       }/projectssearch?search=${searchString}`;
     }
     axios
-      .get(projectsUrl, {})
+      .get(projectsUrl, {
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          Autorization: localStorage.getItem("JWT")
+        }
+      })
       .then((response: any) => {
         console.log(response);
         if (this.state.searchInput !== "") {
@@ -125,7 +136,9 @@ class HomePage extends Component<Props, HomeState> {
       userSearchInput,
       searchPlaceHolderColor
     } = this.state;
-    return (
+    return localStorage.getItem("JWT") ? (
+      <Redirect to="/login" />
+    ) : (
       <div>
         <Header />
         <div className="row homepage-blue-background" />

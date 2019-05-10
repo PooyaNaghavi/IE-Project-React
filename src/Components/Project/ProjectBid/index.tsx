@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./style.css";
 import { number } from "prop-types";
+import { Redirect } from "react-router";
 
 export interface ProjectBidProps {
   projectId: string | null;
@@ -29,7 +30,9 @@ class ProjectBid extends React.Component<ProjectBidProps, ProjectBidState> {
     const { deadlinePassed, alreadyBid } = this.props;
     const { userHasBid, error } = this.state;
 
-    return (
+    return localStorage.getItem("JWT") ? (
+      <Redirect to="/login" />
+    ) : (
       <div className="bid-status-container section-container">
         <div className="sabt-e-pishnahad">ثبت پیشنهاد</div>
         {!deadlinePassed && !alreadyBid && !userHasBid && (
@@ -91,7 +94,8 @@ class ProjectBid extends React.Component<ProjectBidProps, ProjectBidState> {
         },
         {
           headers: {
-            "content-type": "application/json; charset=utf-8"
+            "content-type": "application/json; charset=utf-8",
+            Autorization: localStorage.getItem("JWT")
           }
         }
       )
