@@ -52,7 +52,6 @@ class index extends Component<Props, State> {
               value={this.state.passwordValue}
             />
           </fieldset>
-
           <Popup
             trigger={
               <button className="login-button" type="submit">
@@ -83,7 +82,7 @@ class index extends Component<Props, State> {
   submitLoginFrom(e: React.FormEvent<HTMLFormElement>): void {
     const { usernameValue, passwordValue } = this.state;
     e.preventDefault();
-    const url: string = `http://localhost:8080/login`;
+    const url: string = `${process.env.REACT_APP_BASE_URL}/login`;
     console.log(url);
     axios
       .post(
