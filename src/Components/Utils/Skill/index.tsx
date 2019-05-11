@@ -41,7 +41,7 @@ class Skill extends React.Component<SkillProps, SkillState> {
         <button
           className={`skill-button ${endorsed ? "endorsed" : "not-endorsed"} ${
             selfSkill ? "deleted" : ""
-            }`}
+          }`}
           disabled={disabled}
           onClick={e => this.handleOnClick(e)}
         >
@@ -65,8 +65,9 @@ class Skill extends React.Component<SkillProps, SkillState> {
     axios
       .put(
         `${process.env.REACT_APP_BASE_URL}/user/skill/${this.props.name}?id=${
-        this.props.userToEndorse
+          this.props.userToEndorse
         }`,
+        undefined,
         {
           headers: {
             "content-type": "application/json; charset=utf-8",

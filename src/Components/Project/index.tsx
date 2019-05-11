@@ -70,16 +70,20 @@ class Project extends React.Component<ProjectProps, ProjectState> {
       })
       .then((response: any) => {
         const bids = response.data.bids || [];
-        const userAlreadyBid = !!bids.find((bid: any) => bid.user.id === localStorage.getItem('userId'));
+        const userAlreadyBid = !!bids.find(
+          (bid: any) => bid.user.id === localStorage.getItem("userId")
+        );
         console.log("aaaaa: ", userAlreadyBid);
-
+        console.log(response.data.project);
         this.setState({
           pic: response.data.project.imageUrl,
           title: response.data.project.title,
           deadline: response.data.project.deadline,
           budget: response.data.project.budget,
           winner: response.data.project.winner
-            ? response.data.project.winner.name
+            ? response.data.project.winner.firstName +
+              " " +
+              response.data.project.winner.lastName
             : null,
           description: response.data.project.description,
 
@@ -117,36 +121,36 @@ class Project extends React.Component<ProjectProps, ProjectState> {
     return error ? (
       <div>خطا، لطفا دوباره تلاش کنید</div>
     ) : (
-        <div>
-          <Header />
-          <div className="row project-blue-background" />
-          <div className="container body-container">
-            <div className="row">
-              <div className="col-1 dummy" />
-              <div className="col-10">
-                <div className="project-container">
-                  <ProjectInfo
-                    pic={pic}
-                    title={title}
-                    deadline={deadline}
-                    budget={budget}
-                    winner={winner}
-                    description={description}
-                  />
-                  <ProjectSkills skills={skills} />
-                  <ProjectBid
-                    projectId={projectId}
-                    deadlinePassed={deadline ? deadline < Date.now() : false}
-                    alreadyBid={userAlreadyBid}
-                  />
-                </div>
+      <div>
+        <Header />
+        <div className="row project-blue-background" />
+        <div className="container body-container">
+          <div className="row">
+            <div className="col-1 dummy" />
+            <div className="col-10">
+              <div className="project-container">
+                <ProjectInfo
+                  pic={pic}
+                  title={title}
+                  deadline={deadline}
+                  budget={budget}
+                  winner={winner}
+                  description={description}
+                />
+                <ProjectSkills skills={skills} />
+                <ProjectBid
+                  projectId={projectId}
+                  deadlinePassed={deadline ? deadline < Date.now() : false}
+                  alreadyBid={userAlreadyBid}
+                />
               </div>
-              <div className="col-1 dummy" />
             </div>
+            <div className="col-1 dummy" />
           </div>
-          <Footer />
         </div>
-      );
+        <Footer />
+      </div>
+    );
   }
 }
 

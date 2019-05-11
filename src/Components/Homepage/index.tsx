@@ -21,7 +21,7 @@ interface HomeState {
   projectsNextPageToken: number | null;
 }
 
-interface Props { }
+interface Props {}
 
 class HomePage extends Component<Props, HomeState> {
   constructor(props: Readonly<Props>) {
@@ -55,13 +55,13 @@ class HomePage extends Component<Props, HomeState> {
     if (searchString && searchString !== "") {
       profilesUrl = `${
         process.env.REACT_APP_BASE_URL
-        }/userssearch?search=${searchString}`;
+      }/userssearch?search=${searchString}`;
     }
     axios
       .get(profilesUrl, {
         headers: {
-          "content-type": "application/json; charset=utf-8",
-          "Authorization": localStorage.getItem("JWT")
+          "content-type": "application/x-www-form-urlencoded; charset=utf-8",
+          Authorization: localStorage.getItem("JWT")
         }
       })
       .then((response: any) => {
@@ -70,6 +70,7 @@ class HomePage extends Component<Props, HomeState> {
         });
       })
       .catch((err: any) => {
+        if (err.status == 403) localStorage.removeItem("JWT");
         console.log(err);
       });
   }
@@ -77,20 +78,20 @@ class HomePage extends Component<Props, HomeState> {
   updateProjects(searchString?: string) {
     let projectsUrl: string = `${
       process.env.REACT_APP_BASE_URL
-      }/projects?limit=${this.state.projectsLimit}&nextPageToken=${
+    }/projects?limit=${this.state.projectsLimit}&nextPageToken=${
       this.state.projectsNextPageToken
-      }`;
+    }`;
     if (searchString) {
       projectsUrl = `${
         process.env.REACT_APP_BASE_URL
-        }/projectssearch?search=${searchString}`;
+      }/projectssearch?search=${searchString}`;
     }
-    console.log(localStorage.getItem("JWT"))
+    console.log(localStorage.getItem("JWT"));
     axios
       .get(projectsUrl, {
         headers: {
-          "content-type": "application/json; charset=utf-8",
-          "Authorization": localStorage.getItem("JWT")
+          "content-type": "application/x-www-form-urlencoded; charset=utf-8",
+          Authorization: localStorage.getItem("JWT")
         }
       })
       .then((response: any) => {
@@ -140,80 +141,80 @@ class HomePage extends Component<Props, HomeState> {
     return !localStorage.getItem("JWT") ? (
       <Redirect to="/login" />
     ) : (
-        <div>
-          <Header />
-          <div className="row homepage-blue-background" />
+      <div>
+        <Header />
+        <div className="row homepage-blue-background" />
 
-          <div className="container body-container">
-            <div className="row">
-              <div className="col-1 dummy" />
-              <div className="col-10">
-                <div className="home-container">
-                  <div className="home-title-container">
-                    <div className="home-title">جاب‌اونجا خوب است!</div>
-                    <div className="home-subtitle">
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
-                      با استفاده از طراحان گرافیک است
+        <div className="container body-container">
+          <div className="row">
+            <div className="col-1 dummy" />
+            <div className="col-10">
+              <div className="home-container">
+                <div className="home-title-container">
+                  <div className="home-title">جاب‌اونجا خوب است!</div>
+                  <div className="home-subtitle">
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
+                    با استفاده از طراحان گرافیک است
                   </div>
-                  </div>
-                  <div className="project-search-container">
-                    <input
-                      className={`search-input place-holder-${searchPlaceHolderColor}`}
-                      onChange={e => this.handleSearchInputChange(e)}
-                      value={searchInput}
-                      type="text"
-                      placeholder={searchPlaceHolder}
-                    />
-                    <button
-                      className="custom-button search-button"
-                      onClick={e => this.handleProjectSearchOnClick(e)}
-                    >
-                      جستجو
+                </div>
+                <div className="project-search-container">
+                  <input
+                    className={`search-input place-holder-${searchPlaceHolderColor}`}
+                    onChange={e => this.handleSearchInputChange(e)}
+                    value={searchInput}
+                    type="text"
+                    placeholder={searchPlaceHolder}
+                  />
+                  <button
+                    className="custom-button search-button"
+                    onClick={e => this.handleProjectSearchOnClick(e)}
+                  >
+                    جستجو
                   </button>
-                  </div>
-                  <div className="home-body">
-                    <div className="user-search">
-                      <div className="user-search-container">
-                        <input
-                          className="user-search-input"
-                          type="text"
-                          placeholder="جستجو نام کاربر"
-                          onChange={e => this.handleUserSearchInputChange(e)}
-                          value={userSearchInput}
-                        />
-                      </div>
-                      <div className="user-list">
-                        {this.state.users.map(user => (
-                          <UserPreview key={user.id} user={user} />
-                        ))}
-                      </div>
+                </div>
+                <div className="home-body">
+                  <div className="user-search">
+                    <div className="user-search-container">
+                      <input
+                        className="user-search-input"
+                        type="text"
+                        placeholder="جستجو نام کاربر"
+                        onChange={e => this.handleUserSearchInputChange(e)}
+                        value={userSearchInput}
+                      />
                     </div>
-                    <div className="project-list">
-                      {this.state.projects.map(project => (
-                        <ProjectPreview
-                          key={project.id}
-                          project={project}
-                          deadlinePassed={project.deadline < Date.now()}
-                        />
+                    <div className="user-list">
+                      {this.state.users.map(user => (
+                        <UserPreview key={user.id} user={user} />
                       ))}
-                      {this.state.projectsNextPageToken !== null && (
-                        <button
-                          className="custom-button get-next-projects-page-button"
-                          onClick={e => this.handleProjectsNextPageOnClick(e)}
-                        >
-                          بیشتر
-                      </button>
-                      )}
                     </div>
+                  </div>
+                  <div className="project-list">
+                    {this.state.projects.map(project => (
+                      <ProjectPreview
+                        key={project.id}
+                        project={project}
+                        deadlinePassed={project.deadline < Date.now()}
+                      />
+                    ))}
+                    {this.state.projectsNextPageToken !== null && (
+                      <button
+                        className="custom-button get-next-projects-page-button"
+                        onClick={e => this.handleProjectsNextPageOnClick(e)}
+                      >
+                        بیشتر
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
-              <div className="col-1 dummy" />
             </div>
+            <div className="col-1 dummy" />
           </div>
-          <Footer />
         </div>
-      );
+        <Footer />
+      </div>
+    );
   }
 
   handleUserSearchInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
